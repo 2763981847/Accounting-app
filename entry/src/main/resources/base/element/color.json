@@ -1,0 +1,44 @@
+{
+  "color": [
+    {
+      "name": "white",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "background_color",
+      "value": "#FFF1F3F5"
+    },
+    {
+      "name": "main_color",
+      "value": "#FF007DFF"
+    },
+    {
+      "name": "pay_color",
+      "value": "#FFE84826"
+    },
+    {
+      "name": "border_color",
+      "value": "#33182431"
+    },
+    {
+      "name": "black",
+      "value": "#2e2e2e"
+    },
+    {
+      "name": "gray",
+      "value": "#a2a2a2"
+    },
+    {
+      "name": "sava_color",
+      "value": "#ff6856"
+    },
+    {
+      "name": "list_divider_color",
+      "value": "#f1f1f1"
+    },
+    {
+      "name": "light_yellow",
+      "value": "#f8b209"
+    }
+  ]
+}
