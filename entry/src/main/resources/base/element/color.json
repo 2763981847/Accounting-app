@@ -9,6 +9,14 @@
       "value": "#FFF1F3F5"
     },
     {
+      "name": "button_active_bgc",
+      "value": "#edf0ff"
+    },
+    {
+      "name": "button_bgc",
+      "value": "#f7f7f7"
+    },
+    {
       "name": "main_color",
       "value": "#FF007DFF"
     },
@@ -27,6 +35,10 @@
     {
       "name": "gray",
       "value": "#a2a2a2"
+    },
+    {
+      "name": "deep_gray",
+      "value": "#666666"
     },
     {
       "name": "sava_color",

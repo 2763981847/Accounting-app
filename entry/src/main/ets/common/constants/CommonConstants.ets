@@ -47,6 +47,7 @@ export default class CommonConstants {
    * Component size.
    */
   static readonly FULL_WIDTH = '100%';
+  static readonly EIGHTY_PERCENT = '80%';
   static readonly HALF_WIDTH = '50%';
   static readonly FULL_HEIGHT = '100%';
   static readonly HALF_HEIGHT = '50%';
@@ -79,4 +80,10 @@ export default class CommonConstants {
    */
   static readonly SPACE_M = 20
   static readonly SPACE_S = 10
+
+  /**
+   * date
+   */
+  static readonly MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+  static readonly MILLISECONDS_IN_WEEK = 24 * 60 * 60 * 1000 * 7;
 }

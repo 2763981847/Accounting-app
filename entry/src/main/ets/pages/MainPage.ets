@@ -17,10 +17,10 @@ import AccountTable from '../common/database/tables/AccountTable';
 import AccountData from '../viewmodel/AccountData';
 import CommonConstants from '../common/constants/CommonConstants';
 import { ImageList } from '../viewmodel/AccountList';
-import { formatDateTime, isSameDay } from '../common/utils/DateUtils';
+import { formatDateTime, getEndOfTheDay, getFirstDateOfThisMonth, isSameDay } from '../common/utils/DateUtils';
 import StatisticalCardComponent from '../view/StatisticalCardComponent';
 import groupHeader from '../view/GroupHeaderBuilder';
-import relationalStore from '@ohos.data.relationalStore';
+import DateSelectComponent from '../view/DateSelectComponent';
 
 function getGroupedAccounts(accounts: Array<AccountData>): Array<Array<AccountData>> {
   let groupedAccounts = []
@@ -39,14 +39,18 @@ export default struct MainPage {
   @State searchText: string = '';
   @State isEdit: boolean = false;
   @Link @Watch('filterAccounts') accounts: Array<AccountData>
+  @State @Watch('filterAccounts') endDate: number = getEndOfTheDay(new Date()).getTime()
+  @State @Watch('filterAccounts') beginDate: number = 0
+  // 0 - 收 1 - 支 2 - 全部
+  @State @Watch('filterAccounts') accountType: number = 2
   @State filteredAccounts: Array<AccountData> = []
   @Link isInsert: boolean
   @Link newAccount: AccountData
   @Link index: number
+  private scroller: Scroller = new Scroller()
   private dialogController: CustomDialogController
   private accountTable: AccountTable
   private deleteList: Array<AccountData> = [];
-  private scroller: Scroller = new Scroller()
   searchController: SearchController = new SearchController();
   onAccountsChange: () => void
 
@@ -56,12 +60,20 @@ export default struct MainPage {
 
   filterAccounts() {
     let temp = this.accounts
+    // 模糊查询
     if (this.searchText && this.searchText != '') {
       temp = temp.filter(account =>
       account.desc.includes(this.searchText) ||
       account.typeText.includes(this.searchText) ||
       account.amount.toString() === this.searchText)
     }
+    // 按分类筛选
+    if (this.accountType != 2) {
+      temp = temp.filter(account => account.accountType === this.accountType)
+    }
+    // 按时间筛选
+    temp = temp
+      .filter(account => account.date.getTime() >= this.beginDate && account.date.getTime() <= this.endDate)
     this.filteredAccounts = temp
   }
 
@@ -71,11 +83,9 @@ export default struct MainPage {
   }
 
   deleteListItem() {
-    for (let i = 0; i < this.deleteList.length; i++) {
-      this.accountTable.deleteData(this.deleteList[i], () => {
-        this.onAccountsChange()
-      });
-    }
+    this.accountTable.batchDelete(this.deleteList, () => {
+      this.onAccountsChange()
+    })
     this.deleteList = [];
     this.isEdit = false;
   }
@@ -102,13 +112,17 @@ export default struct MainPage {
           .justifyContent(FlexAlign.SpaceBetween)
           .margin({ top: $r('app.float.edge_size_M'), bottom: $r('app.float.edge_size_MM') })
 
+
+          StatisticalCardComponent({ accounts: $accounts })
+            .aspectRatio(CommonConstants.CARD_ASPECT_RATIO)
+            .width(CommonConstants.FULL_WIDTH)
           Row() {
             Search({
               value: this.searchText,
               placeholder: CommonConstants.SEARCH_TEXT,
               controller: this.searchController
             })
-              .width(CommonConstants.FULL_WIDTH)
+              .width('45%')
               .borderRadius($r('app.float.radius_size_M'))
               .borderWidth($r('app.float.border_size_S'))
               .borderColor($r('app.color.border_color'))
@@ -121,14 +135,42 @@ export default struct MainPage {
               .onSubmit((searchValue: string) => {
                 this.filterAccounts()
               })
+            Row({ space: CommonConstants.SPACE_S }) {
+              Button('全部')
+                .stateEffect(false)
+                .fontSize($r('app.float.font_size_S'))
+                .fontColor(this.accountType === 2 ? $r('app.color.main_color') : $r('app.color.deep_gray'))
+                .backgroundColor(this.accountType === 2 ? $r('app.color.button_active_bgc') : $r('app.color.button_bgc'))
+                .onClick(() => this.accountType = 2)
+              Button('支出')
+                .stateEffect(false)
+                .fontSize($r('app.float.font_size_S'))
+                .onClick(() => this.accountType = 0)
+                .fontColor(this.accountType === 0 ? $r('app.color.main_color') : $r('app.color.deep_gray'))
+                .backgroundColor(this.accountType === 0 ? $r('app.color.button_active_bgc') : $r('app.color.button_bgc'))
+              Button('收入')
+                .stateEffect(false)
+                .fontSize($r('app.float.font_size_S'))
+                .onClick(() => this.accountType = 1)
+                .fontColor(this.accountType === 1 ? $r('app.color.main_color') : $r('app.color.deep_gray'))
+                .backgroundColor(this.accountType === 1 ? $r('app.color.button_active_bgc') : $r('app.color.button_bgc'))
+            }
+            .width(CommonConstants.HALF_WIDTH)
+            .justifyContent(FlexAlign.End)
+
+            .height(CommonConstants.FULL_HEIGHT)
           }
+          .justifyContent(FlexAlign.SpaceBetween)
           .width(CommonConstants.FULL_WIDTH)
+          .height($r('app.float.component_size_SP'))
           .padding({ left: $r('app.float.edge_size_M'), right: $r('app.float.edge_size_M') })
           .margin({ top: $r('app.float.edge_size_S'), bottom: $r('app.float.edge_size_S') })
 
-          StatisticalCardComponent({ accounts: $accounts })
-            .aspectRatio(CommonConstants.CARD_ASPECT_RATIO)
-            .width(CommonConstants.FULL_WIDTH)
+          DateSelectComponent({
+            beginDate: $beginDate,
+            endDate: $endDate,
+            selectedIndex: 3
+          }).width(CommonConstants.EIGHTY_PERCENT)
 
           List({ space: CommonConstants.SPACE_M }) {
             ForEach(getGroupedAccounts(this.filteredAccounts), (accounts: Array<AccountData>) => {

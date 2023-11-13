@@ -8,10 +8,10 @@ export default function groupHeader(accounts, parent = null) {
         Row.justifyContent(FlexAlign.SpaceBetween);
         Row.width(CommonConstants.FULL_WIDTH);
         Row.margin({
-            top: { "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
+            top: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
         });
         Row.padding({
-            left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
+            left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
         });
         if (!isInitialRender) {
             Row.pop();
@@ -22,7 +22,7 @@ export default function groupHeader(accounts, parent = null) {
         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
         Text.create(formatDateTime(accounts[0].date, 'yyyy.MM.dd'));
         Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-        Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
         if (!isInitialRender) {
             Text.pop();
         }
@@ -42,8 +42,8 @@ export default function groupHeader(accounts, parent = null) {
     (parent ? parent : this).observeComponentCreation((elmtId, isInitialRender) => {
         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
         Text.create('支 ' + totalAmount(accounts, 0));
-        Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-        Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
         if (!isInitialRender) {
             Text.pop();
         }
@@ -53,8 +53,8 @@ export default function groupHeader(accounts, parent = null) {
     (parent ? parent : this).observeComponentCreation((elmtId, isInitialRender) => {
         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
         Text.create('收 ' + totalAmount(accounts, 1));
-        Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-        Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
         if (!isInitialRender) {
             Text.pop();
         }
@@ -64,8 +64,8 @@ export default function groupHeader(accounts, parent = null) {
     (parent ? parent : this).observeComponentCreation((elmtId, isInitialRender) => {
         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
         Text.create('结余 ' + (totalAmount(accounts, 1) - totalAmount(accounts, 0)));
-        Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-        Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+        Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
         if (!isInitialRender) {
             Text.pop();
         }

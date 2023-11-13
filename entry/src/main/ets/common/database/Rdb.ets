@@ -53,17 +53,16 @@ export default class Rdb {
     });
   }
 
-  insertData(data: relationalStore.ValuesBucket, callback: Function = () => {
+  batchInsert(data: relationalStore.ValuesBucket[], callback: Function = () => {
   }) {
     if (!callback || typeof callback === 'undefined' || callback === undefined) {
       Logger.info(CommonConstants.RDB_TAG, 'insertData() has no callback!');
       return;
     }
     let resFlag: boolean = false;
-    const valueBucket: relationalStore.ValuesBucket = data;
+    const valueBuckets: relationalStore.ValuesBucket[] = data;
     if (this.rdbStore) {
-
-      this.rdbStore.insert(this.tableName, valueBucket, (err, ret) => {
+      this.rdbStore.batchInsert(this.tableName, valueBuckets, (err, ret) => {
         if (err) {
           Logger.error(CommonConstants.RDB_TAG, `insertData() failed, err: ${err}`);
           callback(resFlag);
@@ -73,6 +72,11 @@ export default class Rdb {
         callback(ret);
       });
     }
+  }
+
+  insertData(data: relationalStore.ValuesBucket, callback: Function = () => {
+  }) {
+    this.batchInsert([data], callback)
   }
 
   deleteData(predicates: relationalStore.RdbPredicates, callback: Function = () => {

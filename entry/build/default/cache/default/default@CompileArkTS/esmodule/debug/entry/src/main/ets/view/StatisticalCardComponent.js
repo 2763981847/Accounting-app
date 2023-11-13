@@ -83,9 +83,9 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
-            Column.backgroundImage({ "id": 16777271, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.backgroundImage({ "id": 16777275, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Column.backgroundImageSize(ImageSize.Cover);
-            Column.borderRadius({ "id": 16777266, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.borderRadius({ "id": 16777270, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Column.width(CommonConstants.FULL_WIDTH);
             Column.height(CommonConstants.FULL_HEIGHT);
             if (!isInitialRender) {
@@ -116,7 +116,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('今日支出');
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -126,7 +126,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.dayPay.toString());
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Bold);
             if (!isInitialRender) {
                 Text.pop();
@@ -147,7 +147,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('今日收入');
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.textAlign(TextAlign.Start);
             if (!isInitialRender) {
                 Text.pop();
@@ -158,7 +158,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.dayEarn.toString());
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Bold);
             if (!isInitialRender) {
                 Text.pop();
@@ -179,7 +179,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('今日结余');
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.textAlign(TextAlign.Start);
             if (!isInitialRender) {
                 Text.pop();
@@ -190,7 +190,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create((this.dayEarn - this.dayPay).toString());
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Bold);
             if (!isInitialRender) {
                 Text.pop();
@@ -223,7 +223,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('本月支出');
-            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -233,7 +233,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.monthPay.toString());
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Bold);
             if (!isInitialRender) {
                 Text.pop();
@@ -254,7 +254,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('本月收入');
-            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -264,7 +264,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.monthEarn.toString());
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Bold);
             if (!isInitialRender) {
                 Text.pop();
@@ -285,7 +285,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('本月结余');
-            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -295,7 +295,7 @@ export default class StatisticalCardComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create((this.monthEarn - this.monthPay).toString());
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(FontWeight.Bold);
             if (!isInitialRender) {
                 Text.pop();

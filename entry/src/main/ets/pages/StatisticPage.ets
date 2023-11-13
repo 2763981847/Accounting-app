@@ -1,7 +1,7 @@
 import CommonConstants from '../common/constants/CommonConstants'
-import { formatDateTime, getEndOfTheDay, getFirstDateOfThisMonth } from '../common/utils/DateUtils'
+import { getEndOfTheDay, getFirstDateOfThisMonth } from '../common/utils/DateUtils'
 import { getRatios, statisticByType } from '../common/utils/StatisticalUtils'
-import DateSelectDialog from '../view/DateSelectDialog'
+import DateSelectComponent from '../view/DateSelectComponent'
 import AccountData from '../viewmodel/AccountData'
 import { ImageList } from '../viewmodel/AccountList'
 import ClassifiedStatistic from '../viewmodel/ClassifiedStatistic'
@@ -19,18 +19,6 @@ export default struct StatisticPage {
     .reduce((total, cur) => total + cur, 0)
   @State ratios: Array<number> = getRatios(this.classifiedStatistics)
   private scroller: Scroller = new Scroller()
-  private dateSelectDialog: CustomDialogController = new CustomDialogController({
-    builder: DateSelectDialog({
-      beginDate: this.beginDate,
-      endDate: this.endDate,
-      onConfirm: (beginDate: number, endDate: number) => {
-        this.beginDate = beginDate
-        this.endDate = endDate
-      }
-    }),
-    customStyle: true,
-    alignment: DialogAlignment.Bottom
-  });
 
   private refreshClassifiedStatistics() {
     this.classifiedStatistics = statisticByType(this.accounts, this.accountType, this.beginDate, this.endDate)
@@ -43,10 +31,11 @@ export default struct StatisticPage {
     Scroll(this.scroller) {
       Column({ space: CommonConstants.SPACE_M }) {
         Column() {
-          Text(formatDateTime(this.beginDate, 'yyyy.MM.dd') + '  -  ' + formatDateTime(this.endDate, 'yyyy.MM.dd'))
-            .fontColor($r('app.color.gray'))
-            .fontSize($r('app.float.font_size_M'))
-            .onClick(() => this.dateSelectDialog.open())
+          DateSelectComponent({
+            beginDate: $beginDate,
+            endDate: $endDate,
+            selectedIndex: 0
+          }).width(CommonConstants.EIGHTY_PERCENT)
 
           Row() {
             Stack() {
@@ -126,6 +115,7 @@ export default struct StatisticPage {
                       .fontSize($r('app.float.font_size_S'))
                       .fontColor($r('app.color.gray'))
                   }.alignItems(HorizontalAlign.Start)
+                  .margin({ right: $r('app.float.edge_size_M') })
 
                   Text('/' + (this.ratios[index] * 100).toFixed(2) + '%').height($r('app.float.component_size_SM'))
                     .fontSize($r('app.float.font_size_S'))

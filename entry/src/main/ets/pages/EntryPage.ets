@@ -3,8 +3,10 @@ import AccountTable from '../common/database/tables/AccountTable'
 import Logger from '../common/utils/Logger'
 import AddDialogComponent from '../view/AddDialogComponent'
 import AccountData from '../viewmodel/AccountData'
+import { testAccounts } from '../viewmodel/AccountList'
 import MainPage from './MainPage'
 import StatisticPage from './StatisticPage'
+
 
 @Entry
 @Component
@@ -17,13 +19,9 @@ struct EntryPage {
   @State accounts: Array<AccountData> = [];
   @State index: number = -1;
   private accountTable = new AccountTable(() => {
+
     // 插入一些测试数据
-    this.accountTable.insertData(new AccountData(0, '吃饭', 100), () => this.onAccountsChange())
-    this.accountTable.insertData(new AccountData(0, '零食', 99), () => this.onAccountsChange())
-    this.accountTable.insertData(new AccountData(0, '汽车加油', 97), () => this.onAccountsChange())
-    this.accountTable.insertData(new AccountData(0, '旅游', 96), () => this.onAccountsChange())
-    this.accountTable.insertData(new AccountData(0, '娱乐', 95), () => this.onAccountsChange())
-    this.accountTable.insertData(new AccountData(0, '宠物', 94), () => this.onAccountsChange())
+    this.accountTable.batchInsert(testAccounts, () => this.onAccountsChange())
   });
   private controller: TabsController = new TabsController()
   private addDialogController: CustomDialogController = new CustomDialogController({
@@ -71,7 +69,9 @@ struct EntryPage {
         .fontColor(this.currentIndex === index ? this.selectedFontColor : this.fontColor)
         .fontSize($r('app.float.font_size_S'))
         .fontWeight(this.currentIndex === index ? 500 : 400)
-    }.width(CommonConstants.FULL_WIDTH)
+    }
+    .justifyContent(FlexAlign.End)
+    .width(CommonConstants.FULL_WIDTH)
   }
 
   build() {
@@ -122,6 +122,10 @@ struct EntryPage {
         .height(CommonConstants.ADD_SIZE)
         .offset({ y: -CommonConstants.BAR_HEIGHT + CommonConstants.ADD_SIZE / 2 })
 
+        Text('记一笔')
+          .fontSize($r('app.float.font_size_S'))
+          .fontColor(this.fontColor)
+          .margin({ bottom: 5 })
       }
       .width(CommonConstants.ADD_SIZE)
     }

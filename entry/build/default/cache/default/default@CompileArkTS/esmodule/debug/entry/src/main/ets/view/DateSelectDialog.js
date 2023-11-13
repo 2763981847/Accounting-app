@@ -12,27 +12,34 @@ export default class DateSelectDialog extends ViewPU {
                 name: '本周',
                 action: () => {
                     const now = Date.now();
-                    this.onConfirm(getMondayOfWeek(now).getTime(), getEndOfTheDay(now).getTime());
+                    this.onConfirm(getMondayOfWeek(now).getTime(), getEndOfTheDay(now).getTime(), '本周');
                 }
             },
             {
                 name: '本月',
                 action: () => {
                     const now = Date.now();
-                    this.onConfirm(getFirstDateOfThisMonth(now).getTime(), getEndOfTheDay(now).getTime());
+                    this.onConfirm(getFirstDateOfThisMonth(now).getTime(), getEndOfTheDay(now).getTime(), '本月');
                 }
             },
             {
                 name: '本年',
                 action: () => {
                     const now = Date.now();
-                    this.onConfirm(getFirstDateOfThisYear(now).getTime(), getEndOfTheDay(now).getTime());
+                    this.onConfirm(getFirstDateOfThisYear(now).getTime(), getEndOfTheDay(now).getTime(), '本年');
+                }
+            },
+            {
+                name: '全部',
+                action: () => {
+                    const now = Date.now();
+                    this.onConfirm(0, getEndOfTheDay(now).getTime(), '全部');
                 }
             },
             {
                 name: '自定义',
                 action: () => {
-                    this.onConfirm(this.beginDate, getEndOfTheDay(this.endDate).getTime());
+                    this.onConfirm(this.beginDate, getEndOfTheDay(this.endDate).getTime(), '自定义');
                 }
             },];
         this.setInitiallyProvidedValue(params);
@@ -95,11 +102,11 @@ export default class DateSelectDialog extends ViewPU {
             Column.width(CommonConstants.FULL_WIDTH);
             Column.height(CommonConstants.DIALOG_HEIGHT);
             Column.padding({
-                top: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
-                left: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
-                right: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
+                top: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
+                left: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
+                right: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
             });
-            Column.borderRadius({ topLeft: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, topRight: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.borderRadius({ topLeft: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, topRight: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             Column.backgroundColor(Color.White);
             Column.align(Alignment.BottomEnd);
             if (!isInitialRender) {
@@ -120,8 +127,8 @@ export default class DateSelectDialog extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('取消');
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.onClick(() => this.controller.close());
             if (!isInitialRender) {
                 Text.pop();
@@ -132,7 +139,7 @@ export default class DateSelectDialog extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('统计时间');
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
@@ -143,8 +150,8 @@ export default class DateSelectDialog extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('保存');
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontColor({ "id": 16777238, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777241, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.onClick(() => {
                 this.options[this.selectedIndex].action();
                 this.controller.close();
@@ -159,7 +166,7 @@ export default class DateSelectDialog extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             List.create({ space: CommonConstants.SPACE_S });
-            List.divider({ strokeWidth: CommonConstants.DIVIDER_SIZE_S, color: { "id": 16777235, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            List.divider({ strokeWidth: CommonConstants.DIVIDER_SIZE_S, color: { "id": 16777238, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
                 List.pop();
             }
@@ -175,7 +182,7 @@ export default class DateSelectDialog extends ViewPU {
                     const itemCreation = (elmtId, isInitialRender) => {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         ListItem.create(deepRenderFunction, isLazyCreate);
-                        ListItem.height({ "id": 16777243, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        ListItem.height({ "id": 16777246, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                         ListItem.onClick(() => this.selectedIndex = index);
                         if (!isInitialRender) {
                             ListItem.pop();
@@ -202,7 +209,7 @@ export default class DateSelectDialog extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(option.name);
                             Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -217,8 +224,8 @@ export default class DateSelectDialog extends ViewPU {
                                     this.observeComponentCreation((elmtId, isInitialRender) => {
                                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                         Text.create('✔');
-                                        Text.fontColor({ "id": 16777238, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                        Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                        Text.fontColor({ "id": 16777241, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                        Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                         if (!isInitialRender) {
                                             Text.pop();
                                         }
@@ -256,7 +263,7 @@ export default class DateSelectDialog extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(option.name);
                             Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -271,8 +278,8 @@ export default class DateSelectDialog extends ViewPU {
                                     this.observeComponentCreation((elmtId, isInitialRender) => {
                                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                         Text.create('✔');
-                                        Text.fontColor({ "id": 16777238, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                        Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                        Text.fontColor({ "id": 16777241, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                        Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                         if (!isInitialRender) {
                                             Text.pop();
                                         }
@@ -337,9 +344,9 @@ export default class DateSelectDialog extends ViewPU {
                                 }
                             });
                         });
-                        Button.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                        Button.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                        Button.backgroundColor({ "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Button.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Button.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Button.backgroundColor({ "id": 16777242, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                         if (!isInitialRender) {
                             Button.pop();
                         }
@@ -350,7 +357,7 @@ export default class DateSelectDialog extends ViewPU {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         Text.create('至');
                         Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                        Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                         if (!isInitialRender) {
                             Text.pop();
                         }
@@ -363,16 +370,15 @@ export default class DateSelectDialog extends ViewPU {
                         Button.onClick(() => {
                             DatePickerDialog.show({
                                 start: new Date(this.beginDate),
-                                end: new Date(),
                                 selected: new Date(this.endDate),
                                 onAccept: (value) => {
                                     this.endDate = new Date(value.year, value.month, value.day).getTime();
                                 }
                             });
                         });
-                        Button.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                        Button.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                        Button.backgroundColor({ "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Button.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Button.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        Button.backgroundColor({ "id": 16777242, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                         if (!isInitialRender) {
                             Button.pop();
                         }

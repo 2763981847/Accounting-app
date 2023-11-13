@@ -23,7 +23,7 @@
                 "descriptionId" : 16777218,
                 "exported" : true,
                 "icon" : "$media:icon",
-                "iconId" : 16777272,
+                "iconId" : 16777276,
                 "label" : "$string:MainAbility_label",
                 "labelId" : 16777219,
                 "name" : "EntryAbility",
@@ -42,9 +42,9 @@
                 ],
                 "srcEntrance" : "./ets/entryability/EntryAbility.ts",
                 "startWindowBackground" : "$color:white",
-                "startWindowBackgroundId" : 16777239,
+                "startWindowBackgroundId" : 16777242,
                 "startWindowIcon" : "$media:icon",
-                "startWindowIconId" : 16777272
+                "startWindowIconId" : 16777276
             }
         ],
         "compileMode" : "esmodule",

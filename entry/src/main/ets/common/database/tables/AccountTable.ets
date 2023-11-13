@@ -16,7 +16,8 @@
 import relationalStore from '@ohos.data.relationalStore';
 import AccountData from '../../../viewmodel/AccountData';
 import CommonConstants from '../../constants/CommonConstants';
-import Rdb from '../rdb';
+import Rdb from '../Rdb';
+
 
 export default class AccountTable {
   private accountTable = new Rdb(CommonConstants.ACCOUNT_TABLE.tableName, CommonConstants.ACCOUNT_TABLE.sqlCreate,
@@ -37,10 +38,19 @@ export default class AccountTable {
     this.accountTable.insertData(valueBucket, callback);
   }
 
-  deleteData(account: AccountData, callback: Function) {
+  batchInsert(accounts: AccountData[], callback: Function) {
+    const valueBuckets: relationalStore.ValuesBucket[] = accounts.map((account) => generateBucket(account));
+    this.accountTable.batchInsert(valueBuckets, callback)
+  }
+
+  batchDelete(accounts: AccountData[], callback: Function) {
     let predicates = new relationalStore.RdbPredicates(CommonConstants.ACCOUNT_TABLE.tableName);
-    predicates.equalTo('id', account.id);
+    predicates.in('id', accounts.map((account) => account.id));
     this.accountTable.deleteData(predicates, callback);
+  }
+
+  deleteData(account: AccountData, callback: Function) {
+    this.batchDelete([account], callback)
   }
 
   updateData(account: AccountData, callback: Function) {

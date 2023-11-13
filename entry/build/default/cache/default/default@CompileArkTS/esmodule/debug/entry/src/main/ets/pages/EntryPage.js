@@ -3,6 +3,7 @@ import AccountTable from '@bundle:com.example.rdb/entry/ets/common/database/tabl
 import Logger from '@bundle:com.example.rdb/entry/ets/common/utils/Logger';
 import AddDialogComponent from '@bundle:com.example.rdb/entry/ets/view/AddDialogComponent';
 import AccountData from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountData';
+import { testAccounts } from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountList';
 import MainPage from '@bundle:com.example.rdb/entry/ets/pages/MainPage';
 import StatisticPage from '@bundle:com.example.rdb/entry/ets/pages/StatisticPage';
 class EntryPage extends ViewPU {
@@ -17,12 +18,7 @@ class EntryPage extends ViewPU {
         this.__index = new ObservedPropertySimplePU(-1, this, "index");
         this.accountTable = new AccountTable(() => {
             // 插入一些测试数据
-            this.accountTable.insertData(new AccountData(0, '吃饭', 100), () => this.onAccountsChange());
-            this.accountTable.insertData(new AccountData(0, '零食', 99), () => this.onAccountsChange());
-            this.accountTable.insertData(new AccountData(0, '汽车加油', 97), () => this.onAccountsChange());
-            this.accountTable.insertData(new AccountData(0, '旅游', 96), () => this.onAccountsChange());
-            this.accountTable.insertData(new AccountData(0, '娱乐', 95), () => this.onAccountsChange());
-            this.accountTable.insertData(new AccountData(0, '宠物', 94), () => this.onAccountsChange());
+            this.accountTable.batchInsert(testAccounts, () => this.onAccountsChange());
         });
         this.controller = new TabsController();
         this.addDialogController = new CustomDialogController({
@@ -163,6 +159,7 @@ class EntryPage extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create({ space: CommonConstants.SPACE_S });
+            Column.justifyContent(FlexAlign.End);
             Column.width(CommonConstants.FULL_WIDTH);
             if (!isInitialRender) {
                 Column.pop();
@@ -183,7 +180,7 @@ class EntryPage extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(name);
             Text.fontColor(this.currentIndex === index ? this.selectedFontColor : this.fontColor);
-            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontWeight(this.currentIndex === index ? 500 : 400);
             if (!isInitialRender) {
                 Text.pop();
@@ -244,7 +241,7 @@ class EntryPage extends ViewPU {
                 }
             });
             TabContent.tabBar({ builder: () => {
-                    this.TabBuilder.call(this, 0, '首页', { "id": 16777268, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, { "id": 16777269, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                    this.TabBuilder.call(this, 0, '首页', { "id": 16777272, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, { "id": 16777273, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                 } });
             if (!isInitialRender) {
                 TabContent.pop();
@@ -271,7 +268,7 @@ class EntryPage extends ViewPU {
                 }
             });
             TabContent.tabBar({ builder: () => {
-                    this.TabBuilder.call(this, 1, '统计', { "id": 16777274, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, { "id": 16777275, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                    this.TabBuilder.call(this, 1, '统计', { "id": 16777278, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, { "id": 16777279, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                 } });
             if (!isInitialRender) {
                 TabContent.pop();
@@ -308,7 +305,7 @@ class EntryPage extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Image.create({ "id": 16777270, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Image.create({ "id": 16777274, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Image.width(CommonConstants.HALF_WIDTH);
             Image.height(CommonConstants.HALF_HEIGHT);
             if (!isInitialRender) {
@@ -317,6 +314,18 @@ class EntryPage extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         Button.pop();
+        this.observeComponentCreation((elmtId, isInitialRender) => {
+            ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            Text.create('记一笔');
+            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor(this.fontColor);
+            Text.margin({ bottom: 5 });
+            if (!isInitialRender) {
+                Text.pop();
+            }
+            ViewStackProcessor.StopGetAccessRecording();
+        });
+        Text.pop();
         Stack.pop();
         Stack.pop();
     }

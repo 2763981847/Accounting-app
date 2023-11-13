@@ -1,6 +1,10 @@
 {
   "float": [
     {
+      "name": "font_size_SM",
+      "value": "10vp"
+    },
+    {
       "name": "font_size_S",
       "value": "12vp"
     },

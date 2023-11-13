@@ -1,7 +1,7 @@
 import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
-import { formatDateTime, getEndOfTheDay, getFirstDateOfThisMonth } from '@bundle:com.example.rdb/entry/ets/common/utils/DateUtils';
+import { getEndOfTheDay, getFirstDateOfThisMonth } from '@bundle:com.example.rdb/entry/ets/common/utils/DateUtils';
 import { getRatios, statisticByType } from '@bundle:com.example.rdb/entry/ets/common/utils/StatisticalUtils';
-import DateSelectDialog from '@bundle:com.example.rdb/entry/ets/view/DateSelectDialog';
+import DateSelectComponent from '@bundle:com.example.rdb/entry/ets/view/DateSelectComponent';
 import { ImageList } from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountList';
 import { panelColors } from '@bundle:com.example.rdb/entry/ets/viewmodel/PanelColors';
 export default class StatisticPage extends ViewPU {
@@ -16,22 +16,6 @@ export default class StatisticPage extends ViewPU {
             .reduce((total, cur) => total + cur, 0), this, "totalAmount");
         this.__ratios = new ObservedPropertyObjectPU(getRatios(this.classifiedStatistics), this, "ratios");
         this.scroller = new Scroller();
-        this.dateSelectDialog = new CustomDialogController({
-            builder: () => {
-                let jsDialog = new DateSelectDialog(this, {
-                    beginDate: this.beginDate,
-                    endDate: this.endDate,
-                    onConfirm: (beginDate, endDate) => {
-                        this.beginDate = beginDate;
-                        this.endDate = endDate;
-                    }
-                });
-                jsDialog.setController(this.dateSelectDialog);
-                ViewPU.create(jsDialog);
-            },
-            customStyle: true,
-            alignment: DialogAlignment.Bottom
-        }, this);
         this.setInitiallyProvidedValue(params);
         this.declareWatch("accounts", this.refreshClassifiedStatistics);
         this.declareWatch("endDate", this.refreshClassifiedStatistics);
@@ -59,9 +43,6 @@ export default class StatisticPage extends ViewPU {
         }
         if (params.scroller !== undefined) {
             this.scroller = params.scroller;
-        }
-        if (params.dateSelectDialog !== undefined) {
-            this.dateSelectDialog = params.dateSelectDialog;
         }
     }
     updateStateVars(params) {
@@ -144,9 +125,9 @@ export default class StatisticPage extends ViewPU {
             Scroll.scrollBar(BarState.Off);
             Scroll.backgroundColor({ "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Scroll.padding({
-                left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
-                right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
-                top: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
+                left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
+                right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
+                top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
             });
             if (!isInitialRender) {
                 Scroll.pop();
@@ -166,9 +147,9 @@ export default class StatisticPage extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
             Column.justifyContent(FlexAlign.Center);
-            Column.padding({ "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.padding({ "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Column.width(CommonConstants.FULL_WIDTH);
-            Column.borderRadius({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.borderRadius({ "id": 16777269, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Column.backgroundColor(Color.White);
             if (!isInitialRender) {
                 Column.pop();
@@ -177,16 +158,30 @@ export default class StatisticPage extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Text.create(formatDateTime(this.beginDate, 'yyyy.MM.dd') + '  -  ' + formatDateTime(this.endDate, 'yyyy.MM.dd'));
-            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.onClick(() => this.dateSelectDialog.open());
+            __Common__.create();
+            __Common__.width(CommonConstants.EIGHTY_PERCENT);
             if (!isInitialRender) {
-                Text.pop();
+                __Common__.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
-        Text.pop();
+        {
+            this.observeComponentCreation((elmtId, isInitialRender) => {
+                ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                if (isInitialRender) {
+                    ViewPU.create(new DateSelectComponent(this, {
+                        beginDate: this.__beginDate,
+                        endDate: this.__endDate,
+                        selectedIndex: 0
+                    }, undefined, elmtId));
+                }
+                else {
+                    this.updateStateVarsOfChildByElmtId(elmtId, {});
+                }
+                ViewStackProcessor.StopGetAccessRecording();
+            });
+        }
+        __Common__.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Row.create();
@@ -233,8 +228,8 @@ export default class StatisticPage extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('总' + (this.accountType === 0 ? '支出' : '收入'));
-            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -245,7 +240,7 @@ export default class StatisticPage extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(this.totalAmount.toString());
             Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -254,8 +249,8 @@ export default class StatisticPage extends ViewPU {
         Text.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Image.create({ "id": 16777276, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Image.create({ "id": 16777280, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Image.width({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Image.onClick(() => this.accountType = this.accountType === 0 ? 1 : 0);
             if (!isInitialRender) {
                 Image.pop();
@@ -307,8 +302,8 @@ export default class StatisticPage extends ViewPU {
                             Text.create();
                             Text.backgroundColor(panelColors[index]);
                             Text.aspectRatio(1);
-                            Text.height({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.borderRadius({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.height({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -319,7 +314,7 @@ export default class StatisticPage extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(classifiedStatistic.typeText);
                             Text.fontColor(panelColors[index]);
-                            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -345,8 +340,8 @@ export default class StatisticPage extends ViewPU {
                             Text.create();
                             Text.backgroundColor(panelColors[index]);
                             Text.aspectRatio(1);
-                            Text.height({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.borderRadius({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.height({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -357,7 +352,7 @@ export default class StatisticPage extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(classifiedStatistic.typeText);
                             Text.fontColor(panelColors[index]);
-                            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -389,8 +384,8 @@ export default class StatisticPage extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create({ space: CommonConstants.SPACE_M });
             Column.width(CommonConstants.FULL_WIDTH);
-            Column.padding({ "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Column.borderRadius({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.padding({ "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.borderRadius({ "id": 16777269, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Column.backgroundColor(Color.White);
             if (!isInitialRender) {
                 Column.pop();
@@ -410,8 +405,8 @@ export default class StatisticPage extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('类别/比例');
-            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -421,8 +416,8 @@ export default class StatisticPage extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create('金额');
-            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -450,7 +445,7 @@ export default class StatisticPage extends ViewPU {
                         ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                         ListItem.create(deepRenderFunction, isLazyCreate);
                         ListItem.width(CommonConstants.FULL_WIDTH);
-                        ListItem.height({ "id": 16777243, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                        ListItem.height({ "id": 16777246, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                         if (!isInitialRender) {
                             ListItem.pop();
                         }
@@ -466,7 +461,7 @@ export default class StatisticPage extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Row.create();
                             Row.width(CommonConstants.FULL_WIDTH);
-                            Row.padding({ left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                            Row.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Row.pop();
                             }
@@ -475,9 +470,9 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create((index + 1).toString());
-                            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.margin({ right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.margin({ right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -487,9 +482,9 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Image.create(ImageList[classifiedStatistic.typeText]);
-                            Image.width({ "id": 16777245, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             Image.aspectRatio(CommonConstants.FULL_SIZE);
-                            Image.margin({ right: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                            Image.margin({ right: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Image.pop();
                             }
@@ -499,6 +494,7 @@ export default class StatisticPage extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Column.create();
                             Column.alignItems(HorizontalAlign.Start);
+                            Column.margin({ right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Column.pop();
                             }
@@ -507,8 +503,8 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(classifiedStatistic.typeText);
-                            Text.height({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -518,8 +514,8 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(classifiedStatistic.count + '笔');
-                            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -530,9 +526,9 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create('/' + (this.ratios[index] * 100).toFixed(2) + '%');
-                            Text.height({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -552,8 +548,8 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(this.accountType === 0 ? '-' + classifiedStatistic.amount.toString() : '+' + classifiedStatistic.amount.toString());
-                            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor(this.accountType === 0 ? { "id": 16777237, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor(this.accountType === 0 ? { "id": 16777240, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             Text.align(Alignment.End);
                             Text.flexGrow(CommonConstants.FULL_SIZE);
                             if (!isInitialRender) {
@@ -572,7 +568,7 @@ export default class StatisticPage extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Row.create();
                             Row.width(CommonConstants.FULL_WIDTH);
-                            Row.padding({ left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                            Row.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Row.pop();
                             }
@@ -581,9 +577,9 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create((index + 1).toString());
-                            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.margin({ right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.margin({ right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -593,9 +589,9 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Image.create(ImageList[classifiedStatistic.typeText]);
-                            Image.width({ "id": 16777245, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             Image.aspectRatio(CommonConstants.FULL_SIZE);
-                            Image.margin({ right: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                            Image.margin({ right: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Image.pop();
                             }
@@ -605,6 +601,7 @@ export default class StatisticPage extends ViewPU {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Column.create();
                             Column.alignItems(HorizontalAlign.Start);
+                            Column.margin({ right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
                                 Column.pop();
                             }
@@ -613,8 +610,8 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(classifiedStatistic.typeText);
-                            Text.height({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -624,8 +621,8 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(classifiedStatistic.count + '笔');
-                            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -636,9 +633,9 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create('/' + (this.ratios[index] * 100).toFixed(2) + '%');
-                            Text.height({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
                                 Text.pop();
                             }
@@ -658,8 +655,8 @@ export default class StatisticPage extends ViewPU {
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                             Text.create(this.accountType === 0 ? '-' + classifiedStatistic.amount.toString() : '+' + classifiedStatistic.amount.toString());
-                            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                            Text.fontColor(this.accountType === 0 ? { "id": 16777237, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            Text.fontColor(this.accountType === 0 ? { "id": 16777240, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             Text.align(Alignment.End);
                             Text.flexGrow(CommonConstants.FULL_SIZE);
                             if (!isInitialRender) {

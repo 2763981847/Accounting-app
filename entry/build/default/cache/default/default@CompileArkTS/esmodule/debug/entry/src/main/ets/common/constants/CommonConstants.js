@@ -44,6 +44,7 @@ CommonConstants.TOAST_TEXT_2 = '账目金额不为正整数';
  * Component size.
  */
 CommonConstants.FULL_WIDTH = '100%';
+CommonConstants.EIGHTY_PERCENT = '80%';
 CommonConstants.HALF_WIDTH = '50%';
 CommonConstants.FULL_HEIGHT = '100%';
 CommonConstants.HALF_HEIGHT = '50%';
@@ -75,4 +76,9 @@ CommonConstants.INDEX_TAG = '[Debug.Index]';
  */
 CommonConstants.SPACE_M = 20;
 CommonConstants.SPACE_S = 10;
+/**
+ * date
+ */
+CommonConstants.MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+CommonConstants.MILLISECONDS_IN_WEEK = 24 * 60 * 60 * 1000 * 7;
 //# sourceMappingURL=CommonConstants.js.map

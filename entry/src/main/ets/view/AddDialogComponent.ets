@@ -68,7 +68,7 @@ export default struct AddDialogComponent {
   }
 
   build() {
-    Column({ space: 20 }) {
+    Column({ space: CommonConstants.SPACE_M }) {
       Image($rawfile('half.png'))
         .width($r('app.float.component_size_L'))
         .height($r('app.float.component_size_S'))

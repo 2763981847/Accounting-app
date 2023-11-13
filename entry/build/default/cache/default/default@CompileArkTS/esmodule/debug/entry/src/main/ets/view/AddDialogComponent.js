@@ -164,12 +164,12 @@ export default class AddDialogComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
-            Column.width({ "id": 16777246, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Column.padding({ top: { "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
-            Column.margin({ bottom: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.width({ "id": 16777249, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.padding({ top: { "id": 16777254, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.margin({ bottom: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             Column.border(this.curIndex === index ? {
-                width: { bottom: { "id": 16777240, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } },
-                color: { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
+                width: { bottom: { "id": 16777243, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } },
+                color: { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
             } : { color: Color.White });
             if (!isInitialRender) {
                 Column.pop();
@@ -179,8 +179,8 @@ export default class AddDialogComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create(index === 0 ? { "id": 16777229, "type": 10003, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777226, "type": 10003, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontColor(this.curIndex === index ? { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : Color.Gray);
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontColor(this.curIndex === index ? { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : Color.Gray);
             if (!isInitialRender) {
                 Text.pop();
             }
@@ -202,10 +202,10 @@ export default class AddDialogComponent extends ViewPU {
     initialRender() {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Column.create({ space: 20 });
+            Column.create({ space: CommonConstants.SPACE_M });
             Column.width(CommonConstants.FULL_WIDTH);
             Column.height(CommonConstants.DIALOG_HEIGHT);
-            Column.borderRadius({ topLeft: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, topRight: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.borderRadius({ topLeft: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, topRight: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             Column.backgroundColor(Color.White);
             Column.align(Alignment.BottomEnd);
             if (!isInitialRender) {
@@ -216,8 +216,8 @@ export default class AddDialogComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Image.create({ "id": 0, "type": 30000, params: ['half.png'], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Image.width({ "id": 16777242, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Image.height({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Image.width({ "id": 16777245, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Image.height({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Image.onClick(() => {
                 var _a;
                 (_a = this.controller) === null || _a === void 0 ? void 0 : _a.close();
@@ -279,13 +279,13 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Column.create();
-                                    Column.width({ "id": 16777244, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.width({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.aspectRatio(CommonConstants.FULL_SIZE);
-                                    Column.padding({ top: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
-                                    Column.margin({ top: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.padding({ top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.margin({ top: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     Column.align(Alignment.TopStart);
-                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Column.borderRadius({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.onClick(() => {
                                         this.selectAccount(item);
                                     });
@@ -297,7 +297,7 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Image.create(this.curType === item.typeText ? item.iconSelected : item.icon);
-                                    Image.width({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Image.width({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Image.aspectRatio(CommonConstants.FULL_SIZE);
                                     if (!isInitialRender) {
                                         Image.pop();
@@ -307,9 +307,9 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Text.create(item.typeText);
-                                    Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.margin({ top: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.margin({ top: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
                                         Text.pop();
                                     }
@@ -325,13 +325,13 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Column.create();
-                                    Column.width({ "id": 16777244, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.width({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.aspectRatio(CommonConstants.FULL_SIZE);
-                                    Column.padding({ top: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
-                                    Column.margin({ top: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.padding({ top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.margin({ top: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     Column.align(Alignment.TopStart);
-                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Column.borderRadius({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.onClick(() => {
                                         this.selectAccount(item);
                                     });
@@ -343,7 +343,7 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Image.create(this.curType === item.typeText ? item.iconSelected : item.icon);
-                                    Image.width({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Image.width({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Image.aspectRatio(CommonConstants.FULL_SIZE);
                                     if (!isInitialRender) {
                                         Image.pop();
@@ -353,9 +353,9 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Text.create(item.typeText);
-                                    Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.margin({ top: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.margin({ top: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
                                         Text.pop();
                                     }
@@ -385,7 +385,7 @@ export default class AddDialogComponent extends ViewPU {
             TabContent.tabBar({ builder: () => {
                     this.TabBuilder.call(this, 0);
                 } });
-            TabContent.margin({ bottom: { "id": 16777252, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            TabContent.margin({ bottom: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
                 TabContent.pop();
             }
@@ -429,13 +429,13 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Column.create();
-                                    Column.width({ "id": 16777244, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.width({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.aspectRatio(CommonConstants.FULL_SIZE);
-                                    Column.padding({ top: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
-                                    Column.margin({ top: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.padding({ top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.margin({ top: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     Column.align(Alignment.TopStart);
-                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Column.borderRadius({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.onClick(() => {
                                         this.selectAccount(item);
                                     });
@@ -447,7 +447,7 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Image.create(this.curType === item.typeText ? item.iconSelected : item.icon);
-                                    Image.width({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Image.width({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Image.aspectRatio(CommonConstants.FULL_SIZE);
                                     if (!isInitialRender) {
                                         Image.pop();
@@ -457,9 +457,9 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Text.create(item.typeText);
-                                    Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.margin({ top: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.margin({ top: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
                                         Text.pop();
                                     }
@@ -475,13 +475,13 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Column.create();
-                                    Column.width({ "id": 16777244, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.width({ "id": 16777247, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.aspectRatio(CommonConstants.FULL_SIZE);
-                                    Column.padding({ top: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
-                                    Column.margin({ top: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.padding({ top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Column.margin({ top: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     Column.align(Alignment.TopStart);
-                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Column.borderRadius({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.backgroundColor(this.curType === item.typeText ? { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777230, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Column.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Column.onClick(() => {
                                         this.selectAccount(item);
                                     });
@@ -493,7 +493,7 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Image.create(this.curType === item.typeText ? item.iconSelected : item.icon);
-                                    Image.width({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Image.width({ "id": 16777267, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     Image.aspectRatio(CommonConstants.FULL_SIZE);
                                     if (!isInitialRender) {
                                         Image.pop();
@@ -503,9 +503,9 @@ export default class AddDialogComponent extends ViewPU {
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                                     Text.create(item.typeText);
-                                    Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-                                    Text.margin({ top: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+                                    Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.fontColor(this.curType === item.typeText ? Color.White : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    Text.margin({ top: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
                                         Text.pop();
                                     }
@@ -535,7 +535,7 @@ export default class AddDialogComponent extends ViewPU {
             TabContent.tabBar({ builder: () => {
                     this.TabBuilder.call(this, 1);
                 } });
-            TabContent.margin({ bottom: { "id": 16777252, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            TabContent.margin({ bottom: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
                 TabContent.pop();
             }
@@ -562,9 +562,9 @@ export default class AddDialogComponent extends ViewPU {
                         this.dateString = formatDateTime(this.selectedDate, 'yyyy.MM.dd');
                     } });
             });
-            Button.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Button.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Button.backgroundColor({ "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.backgroundColor({ "id": 16777242, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Button.pop();
             }
@@ -580,9 +580,9 @@ export default class AddDialogComponent extends ViewPU {
                         this.timeString = formatDateTime(this.selectedDate, 'HH:mm');
                     } });
             });
-            Button.fontColor({ "id": 16777233, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Button.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Button.backgroundColor({ "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.backgroundColor({ "id": 16777242, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
                 Button.pop();
             }
@@ -594,7 +594,7 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
             Column.width(CommonConstants.FULL_WIDTH);
-            Column.padding({ left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
                 Column.pop();
             }
@@ -604,7 +604,7 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create({ "id": 16777222, "type": 10003, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.width(CommonConstants.FULL_WIDTH);
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontColor(Color.Black);
             if (!isInitialRender) {
                 Text.pop();
@@ -615,8 +615,8 @@ export default class AddDialogComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
-            Column.height({ "id": 16777246, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Column.padding({ top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777254, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.height({ "id": 16777249, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.padding({ top: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             Column.borderWidth({ bottom: CommonConstants.FULL_SIZE });
             Column.borderColor({ "id": 16777232, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
@@ -648,7 +648,7 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
             Column.width(CommonConstants.FULL_WIDTH);
-            Column.padding({ left: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777253, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
                 Column.pop();
             }
@@ -658,7 +658,7 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create({ "id": 16777223, "type": 10003, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.width(CommonConstants.FULL_WIDTH);
-            Text.fontSize({ "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontColor(Color.Black);
             if (!isInitialRender) {
                 Text.pop();
@@ -669,8 +669,8 @@ export default class AddDialogComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Column.create();
-            Column.height({ "id": 16777246, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Column.padding({ top: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777254, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            Column.height({ "id": 16777249, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Column.padding({ top: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777257, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             Column.borderWidth({ bottom: CommonConstants.FULL_SIZE });
             Column.borderColor({ "id": 16777232, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
@@ -703,9 +703,9 @@ export default class AddDialogComponent extends ViewPU {
             Column.create();
             Column.layoutWeight(CommonConstants.FULL_SIZE);
             Column.padding({
-                bottom: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
-                left: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
-                right: { "id": 16777259, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
+                bottom: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
+                left: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
+                right: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
             });
             Column.justifyContent(FlexAlign.End);
             if (!isInitialRender) {
@@ -717,7 +717,7 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Button.createWithChild();
             Button.width(CommonConstants.FULL_WIDTH);
-            Button.height({ "id": 16777245, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Button.height({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Button.onClick(() => {
                 var _a;
                 if (this.newAccount.typeText === '' || this.curIndex !== this.newAccount.accountType) {
@@ -746,7 +746,7 @@ export default class AddDialogComponent extends ViewPU {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             Text.create({ "id": 16777221, "type": 10003, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
-            Text.fontSize({ "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontColor(Color.White);
             if (!isInitialRender) {
                 Text.pop();
