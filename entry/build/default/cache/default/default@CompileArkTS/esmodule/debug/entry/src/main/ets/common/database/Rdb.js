@@ -45,16 +45,16 @@ export default class Rdb {
             callback();
         });
     }
-    insertData(data, callback = () => {
+    batchInsert(data, callback = () => {
     }) {
         if (!callback || typeof callback === 'undefined' || callback === undefined) {
             Logger.info(CommonConstants.RDB_TAG, 'insertData() has no callback!');
             return;
         }
         let resFlag = false;
-        const valueBucket = data;
+        const valueBuckets = data;
         if (this.rdbStore) {
-            this.rdbStore.insert(this.tableName, valueBucket, (err, ret) => {
+            this.rdbStore.batchInsert(this.tableName, valueBuckets, (err, ret) => {
                 if (err) {
                     Logger.error(CommonConstants.RDB_TAG, `insertData() failed, err: ${err}`);
                     callback(resFlag);
@@ -64,6 +64,10 @@ export default class Rdb {
                 callback(ret);
             });
         }
+    }
+    insertData(data, callback = () => {
+    }) {
+        this.batchInsert([data], callback);
     }
     deleteData(predicates, callback = () => {
     }) {
@@ -123,4 +127,4 @@ export default class Rdb {
         }
     }
 }
-//# sourceMappingURL=rdb.js.map
+//# sourceMappingURL=Rdb.js.map

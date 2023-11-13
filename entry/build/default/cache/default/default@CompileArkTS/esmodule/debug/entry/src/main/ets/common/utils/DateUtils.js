@@ -1,3 +1,4 @@
+import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
 export function formatDateTime(date, format) {
     if (typeof date === 'number') {
         date = new Date(date);
@@ -26,6 +27,12 @@ export function formatDateTime(date, format) {
     return format;
 }
 export function isSameDay(date1, date2) {
+    if (typeof date1 === 'number') {
+        date1 = new Date(date1);
+    }
+    if (typeof date2 === 'number') {
+        date2 = new Date(date2);
+    }
     return isSameMonth(date1, date2) &&
         date1.getDate() === date2.getDate();
 }
@@ -37,9 +44,8 @@ export function getEndOfTheDay(inputDate) {
     if (typeof inputDate === 'number') {
         inputDate = new Date(inputDate);
     }
-    const date = new Date(inputDate);
-    date.setHours(23, 59, 59, 999);
-    return date;
+    const nextDay = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate() + 1);
+    return new Date(nextDay.getTime() - 1);
 }
 export function getMondayOfWeek(inputDate) {
     if (typeof inputDate === 'number') {
@@ -48,8 +54,7 @@ export function getMondayOfWeek(inputDate) {
     const date = new Date(inputDate.getFullYear(), inputDate.getMonth(), inputDate.getDate());
     const dayOfWeek = date.getDay();
     const difference = dayOfWeek;
-    const millisecondsInDay = 24 * 60 * 60 * 1000;
-    const millisecondsToAdd = difference * millisecondsInDay;
+    const millisecondsToAdd = difference * CommonConstants.MILLISECONDS_IN_DAY;
     date.setTime(date.getTime() - millisecondsToAdd);
     return date;
 }
@@ -64,5 +69,29 @@ export function getFirstDateOfThisYear(date) {
         date = new Date(date);
     }
     return new Date(date.getFullYear(), 0);
+}
+export function getDateRangeOfThisWeek(date) {
+    const beginDate = getMondayOfWeek(date);
+    const nextWeek = new Date(beginDate.getTime());
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    return { beginDate: beginDate.getTime(), endDate: nextWeek.getTime() - 1 };
+}
+export function getDateRangeOfThisMonth(date) {
+    const beginDate = getFirstDateOfThisMonth(date);
+    const nextMonth = new Date(beginDate.getTime());
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    return { beginDate: beginDate.getTime(), endDate: nextMonth.getTime() - 1 };
+}
+export function getDateRangeOfThisYear(date) {
+    const beginDate = getFirstDateOfThisYear(date);
+    const nextYear = new Date(beginDate.getTime());
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    return { beginDate: beginDate.getTime(), endDate: nextYear.getTime() - 1 };
+}
+export function generateRandomDate(startDate, endDate) {
+    const startTimestamp = startDate.getTime();
+    const endTimestamp = endDate.getTime();
+    const randomTimestamp = startTimestamp + Math.random() * (endTimestamp - startTimestamp);
+    return new Date(randomTimestamp);
 }
 //# sourceMappingURL=DateUtils.js.map

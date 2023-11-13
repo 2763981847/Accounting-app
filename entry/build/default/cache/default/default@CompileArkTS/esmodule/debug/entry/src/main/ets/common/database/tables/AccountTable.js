@@ -30,10 +30,17 @@ export default class AccountTable {
         const valueBucket = generateBucket(account);
         this.accountTable.insertData(valueBucket, callback);
     }
-    deleteData(account, callback) {
+    batchInsert(accounts, callback) {
+        const valueBuckets = accounts.map((account) => generateBucket(account));
+        this.accountTable.batchInsert(valueBuckets, callback);
+    }
+    batchDelete(accounts, callback) {
         let predicates = new relationalStore.RdbPredicates(CommonConstants.ACCOUNT_TABLE.tableName);
-        predicates.equalTo('id', account.id);
+        predicates.in('id', accounts.map((account) => account.id));
         this.accountTable.deleteData(predicates, callback);
+    }
+    deleteData(account, callback) {
+        this.batchDelete([account], callback);
     }
     updateData(account, callback) {
         const valueBucket = generateBucket(account);
