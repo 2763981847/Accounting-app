@@ -1,21 +1,14 @@
-/*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
- * Licensed under the Apache License,Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+// 导出一个名为 AccountItem 的接口，该接口用于表示记账应用中的记账类型项信息
 export default interface AccountItem {
+  // 图标资源，表示记账类型的默认图标
   icon: Resource;
+
+  // 选中状态的图标资源，表示记账类型的被选中时的图标
   iconSelected: Resource;
+
+  // 记账类型，0 表示支出，1 表示收入
   accountType: number;
+
+  // 类型文本，用于描述记账类型
   typeText: string;
 }

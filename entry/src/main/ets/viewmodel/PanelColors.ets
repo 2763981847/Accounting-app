@@ -1,3 +1,8 @@
+/*
+ * 面板颜色数组
+ *
+ * 此数组包含用于显示数据面板的预定义颜色。
+ */
 export const panelColors: Array<string> = [
   'rgb(248,178,9)',
   'rgb(243,70,14)',

@@ -1,18 +1,4 @@
-/*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
- * Licensed under the Apache License,Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+// 引入 Prompt 模块
 import prompt from '@ohos.promptAction';
 import Account from '../common/beans/Account';
 import AccountItem from '../common/beans/AccountItem';
@@ -20,25 +6,27 @@ import CommonConstants from '../common/constants/CommonConstants';
 import { EarnList, PayList } from '../viewmodel/AccountList';
 import { formatDateTime } from '../common/utils/DateUtils';
 
+// 声明一个 CustomDialog，用于创建自定义对话框组件
 @CustomDialog
 export default struct AddDialogComponent {
-  controller?: CustomDialogController;
-  @Link isInsert: boolean;
-  @Link newAccount: Account;
-  confirm?: (isInsert: boolean, newAccount: Account) => void;
-  private scroller: Scroller = new Scroller();
-  private inputAmount = '';
-  private inputDesc = '';
-  @State payList: Array<AccountItem> = PayList;
-  @State earnList: Array<AccountItem> = EarnList;
-  @State bgColor: string = '';
-  @State curIndex: number = 0;
-  @State curType: string = '';
-  private selectedDate: Date = this.newAccount.date
+  controller?: CustomDialogController; // 对话框控制器
+  @Link isInsert: boolean; // 是否插入新记录的标志
+  @Link newAccount: Account; // 新账户的数据
+  confirm?: (isInsert: boolean, newAccount: Account) => void; // 确认操作的回调函数
+  private scroller: Scroller = new Scroller(); // 滚动器实例
+  private inputAmount = ''; // 输入的金额字符串
+  private inputDesc = ''; // 输入的描述字符串
+  @State payList: Array<AccountItem> = PayList; // 支出列表
+  @State earnList: Array<AccountItem> = EarnList; // 收入列表
+  @State bgColor: string = ''; // 背景颜色
+  @State curIndex: number = 0; // 当前选中的支付或收入索引
+  @State curType: string = ''; // 当前选中的支付或收入类型
+  private selectedDate: Date = this.newAccount.date // 选中的日期，默认为新账户的日期
   // 由于@State修饰Date类型时会出现错误，所以这里声明两个辅助变量
-  @State dateString: string = formatDateTime(this.selectedDate, 'yyyy.MM.dd')
-  @State timeString: string = formatDateTime(this.selectedDate, 'HH:mm')
+  @State dateString: string = formatDateTime(this.selectedDate, 'yyyy.MM.dd') // 日期字符串
+  @State timeString: string = formatDateTime(this.selectedDate, 'HH:mm') // 时间字符串
 
+  // 构建 Tab 标签页
   @Builder
   TabBuilder(index: number) {
     Column() {
@@ -55,20 +43,24 @@ export default struct AddDialogComponent {
                                       } : { color: Color.White })
   }
 
+  // 当即将出现时触发的生命周期函数
   aboutToAppear() {
-    this.inputAmount = this.newAccount.amount.toString();
-    this.curIndex = this.newAccount.accountType;
-    this.curType = this.newAccount.typeText;
+    this.inputAmount = this.newAccount.amount.toString(); // 初始化输入金额
+    this.curIndex = this.newAccount.accountType; // 初始化当前支付或收入索引
+    this.curType = this.newAccount.typeText; // 初始化当前支付或收入类型
   }
 
+  // 选择支付或收入类型
   selectAccount(item: AccountItem) {
     this.newAccount.accountType = item.accountType;
     this.newAccount.typeText = item.typeText;
     this.curType = item.typeText;
   }
 
+  // 构建对话框内容
   build() {
     Column({ space: CommonConstants.SPACE_M }) {
+      // 关闭按钮
       Image($rawfile('half.png'))
         .width($r('app.float.component_size_L'))
         .height($r('app.float.component_size_S'))
@@ -76,8 +68,11 @@ export default struct AddDialogComponent {
           this.controller?.close();
         })
 
+      // 顶部标签页切换
       Tabs({ barPosition: BarPosition.Start, index: this.curIndex }) {
+        // 支出标签页
         TabContent() {
+          // 支出类型列表
           Grid(this.scroller) {
             ForEach(this.payList, (item: AccountItem) => {
               GridItem() {
@@ -110,7 +105,9 @@ export default struct AddDialogComponent {
         .tabBar(this.TabBuilder(0))
         .margin({ bottom: $r('app.float.edge_size_LP') })
 
+        // 收入标签页
         TabContent() {
+          // 收入类型列表
           Grid(this.scroller) {
             ForEach(this.earnList, (item: AccountItem) => {
               GridItem() {
@@ -151,6 +148,7 @@ export default struct AddDialogComponent {
         this.curIndex = index;
       })
 
+      // 选择日期和时间
       Row({ space: CommonConstants.SPACE_M }) {
         Button(this.dateString + '  ▼')
           .onClick(() => {
@@ -176,6 +174,7 @@ export default struct AddDialogComponent {
           .backgroundColor($r('app.color.white'))
       }.height('5%').justifyContent(FlexAlign.Center)
 
+      // 输入金额
       Column() {
         Text($r('app.string.count_text'))
           .width(CommonConstants.FULL_WIDTH)
@@ -203,7 +202,7 @@ export default struct AddDialogComponent {
       .width(CommonConstants.FULL_WIDTH)
       .padding({ left: $r('app.float.edge_size_M'), right: $r('app.float.edge_size_M') })
 
-
+      // 输入描述
       Column() {
         Text($r('app.string.desc_text'))
           .width(CommonConstants.FULL_WIDTH)
@@ -230,6 +229,7 @@ export default struct AddDialogComponent {
       .width(CommonConstants.FULL_WIDTH)
       .padding({ left: $r('app.float.edge_size_M'), right: $r('app.float.edge_size_M') })
 
+      // 确认按钮
       Column() {
         Button() {
           Text($r('app.string.confirm_text'))
@@ -239,18 +239,21 @@ export default struct AddDialogComponent {
         .width(CommonConstants.FULL_WIDTH)
         .height($r('app.float.component_size_M'))
         .onClick(() => {
+          // 判断输入是否合法
           if (this.newAccount.typeText === '' || this.curIndex !== this.newAccount.accountType) {
             prompt.showToast({ message: CommonConstants.TOAST_TEXT_1, bottom: CommonConstants.PROMPT_BOTTOM });
           } else {
             let regex: RegExp = new RegExp('[1-9][0-9]*');
             let matchValue: Array<string> | null = this.inputAmount.match(regex);
             if (matchValue !== null && matchValue[0] === this.inputAmount) {
+              // 合法输入，更新账户信息，调用确认回调函数
               this.newAccount.amount = Number(this.inputAmount);
               this.newAccount.date = this.selectedDate
               this.newAccount.desc = this.inputDesc
               this.confirm && this.confirm(this.isInsert, this.newAccount);
               this.controller?.close();
             } else {
+              // 非法输入，提示用户重新输入
               prompt.showToast({ message: CommonConstants.TOAST_TEXT_2, bottom: CommonConstants.PROMPT_BOTTOM });
             }
           }
