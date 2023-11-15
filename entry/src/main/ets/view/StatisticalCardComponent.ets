@@ -1,12 +1,12 @@
 import CommonConstants from '../common/constants/CommonConstants';
 import { isSameDay, isSameMonth } from '../common/utils/DateUtils'
 import { dayStatistics, monthStatistics } from '../common/utils/StatisticalUtils';
-import AccountData from '../viewmodel/AccountData'
+import Account from '../common/beans/Account'
 
 
 @Component
 export default struct StatisticalCardComponent {
-  @Link @Watch('onAccountsChange') accounts: Array<AccountData>
+  @Link @Watch('onAccountsChange') accounts: Array<Account>
   @State dayPay: number = dayStatistics(this.accounts, 0)
   @State dayEarn: number = dayStatistics(this.accounts, 1)
   @State monthPay: number = monthStatistics(this.accounts, 0)

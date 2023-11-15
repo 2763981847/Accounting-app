@@ -361,7 +361,7 @@ export class DateSelectDialog extends ViewPU {
         Text.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
-            Text.create('统计时间');
+            Text.create('时间筛选');
             Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {

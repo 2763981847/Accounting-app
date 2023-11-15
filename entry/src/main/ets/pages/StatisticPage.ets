@@ -2,14 +2,14 @@ import CommonConstants from '../common/constants/CommonConstants'
 import { getEndOfTheDay, getFirstDateOfThisMonth } from '../common/utils/DateUtils'
 import { getRatios, statisticByType } from '../common/utils/StatisticalUtils'
 import DateSelectComponent from '../view/DateSelectComponent'
-import AccountData from '../viewmodel/AccountData'
+import Account from '../common/beans/Account'
 import { ImageList } from '../viewmodel/AccountList'
-import ClassifiedStatistic from '../viewmodel/ClassifiedStatistic'
+import ClassifiedStatistic from '../common/beans/ClassifiedStatistic'
 import { panelColors } from '../viewmodel/PanelColors'
 
 @Component
 export default struct StatisticPage {
-  @Link @Watch('refreshClassifiedStatistics') accounts: Array<AccountData>
+  @Link @Watch('refreshClassifiedStatistics') accounts: Array<Account>
   // @State修饰Date类型会出错，所以我们这里储存的是时间戳
   @State @Watch('refreshClassifiedStatistics') endDate: number = getEndOfTheDay(new Date()).getTime()
   @State @Watch('refreshClassifiedStatistics') beginDate: number = getFirstDateOfThisMonth(this.endDate).getTime()

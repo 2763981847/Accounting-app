@@ -2,7 +2,7 @@ import CommonConstants from '../common/constants/CommonConstants'
 import AccountTable from '../common/database/tables/AccountTable'
 import Logger from '../common/utils/Logger'
 import AddDialogComponent from '../view/AddDialogComponent'
-import AccountData from '../viewmodel/AccountData'
+import Account from '../common/beans/Account'
 import { testAccounts } from '../viewmodel/AccountList'
 import MainPage from './MainPage'
 import StatisticPage from './StatisticPage'
@@ -15,8 +15,8 @@ struct EntryPage {
   @State selectedFontColor: string = '#007DFF'
   @State currentIndex: number = 0
   @State isInsert: boolean = false;
-  @State newAccount: AccountData = new AccountData()
-  @State accounts: Array<AccountData> = [];
+  @State newAccount: Account = new Account()
+  @State accounts: Array<Account> = [];
   @State index: number = -1;
   private accountTable = new AccountTable(() => {
 
@@ -28,7 +28,7 @@ struct EntryPage {
     builder: AddDialogComponent({
       isInsert: $isInsert,
       newAccount: $newAccount,
-      confirm: (isInsert: boolean, newAccount: AccountData) => this.accept(isInsert, newAccount)
+      confirm: (isInsert: boolean, newAccount: Account) => this.accept(isInsert, newAccount)
     }),
     customStyle: true,
     alignment: DialogAlignment.Bottom
@@ -36,13 +36,13 @@ struct EntryPage {
 
   private onAccountsChange() {
     this.accountTable.getRdbStore(() => {
-      this.accountTable.query((result: AccountData[]) => {
+      this.accountTable.query((result: Account[]) => {
         this.accounts = result.sort((a, b) => b.date.getTime() - a.date.getTime());
       });
     });
   }
 
-  accept(isInsert: boolean, newAccount: AccountData): void {
+  accept(isInsert: boolean, newAccount: Account): void {
     if (isInsert) {
       Logger.info(`${CommonConstants.INDEX_TAG}`, `The account inserted is:  ${JSON.stringify(newAccount)}`);
       this.accountTable.insertData(newAccount, () => {
@@ -114,7 +114,7 @@ struct EntryPage {
         }
         .onClick(() => {
           this.controller.changeIndex(0);
-          this.newAccount = new AccountData();
+          this.newAccount = new Account();
           this.isInsert = true;
           this.addDialogController.open();
         })

@@ -13,8 +13,19 @@
  * limitations under the License.
  */
 
-export interface AccountTable {
-  tableName: string;
-  sqlCreate: string;
-  columns: string[];
+export default class Account {
+  id: number = -1;
+  accountType: number = 0;
+  typeText: string = '';
+  amount: number = 0;
+  date: Date = new Date()
+  desc: string = '';
+
+  constructor(accountType: number = 0, typeText: string = '', amount: number = 0, date: Date = new Date(), desc: string = '') {
+    this.accountType = accountType;
+    this.typeText = typeText;
+    this.amount = amount;
+    this.date = date
+    this.desc = desc;
+  }
 }

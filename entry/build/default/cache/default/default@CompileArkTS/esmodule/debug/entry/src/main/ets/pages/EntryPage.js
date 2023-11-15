@@ -2,7 +2,7 @@ import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/
 import AccountTable from '@bundle:com.example.rdb/entry/ets/common/database/tables/AccountTable';
 import Logger from '@bundle:com.example.rdb/entry/ets/common/utils/Logger';
 import AddDialogComponent from '@bundle:com.example.rdb/entry/ets/view/AddDialogComponent';
-import AccountData from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountData';
+import Account from '@bundle:com.example.rdb/entry/ets/common/beans/Account';
 import { testAccounts } from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountList';
 import MainPage from '@bundle:com.example.rdb/entry/ets/pages/MainPage';
 import StatisticPage from '@bundle:com.example.rdb/entry/ets/pages/StatisticPage';
@@ -13,7 +13,7 @@ class EntryPage extends ViewPU {
         this.__selectedFontColor = new ObservedPropertySimplePU('#007DFF', this, "selectedFontColor");
         this.__currentIndex = new ObservedPropertySimplePU(0, this, "currentIndex");
         this.__isInsert = new ObservedPropertySimplePU(false, this, "isInsert");
-        this.__newAccount = new ObservedPropertyObjectPU(new AccountData(), this, "newAccount");
+        this.__newAccount = new ObservedPropertyObjectPU(new Account(), this, "newAccount");
         this.__accounts = new ObservedPropertyObjectPU([], this, "accounts");
         this.__index = new ObservedPropertySimplePU(-1, this, "index");
         this.accountTable = new AccountTable(() => {
@@ -291,7 +291,7 @@ class EntryPage extends ViewPU {
             Button.createWithChild();
             Button.onClick(() => {
                 this.controller.changeIndex(0);
-                this.newAccount = new AccountData();
+                this.newAccount = new Account();
                 this.isInsert = true;
                 this.addDialogController.open();
             });

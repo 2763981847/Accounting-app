@@ -12,20 +12,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-export default class AccountData {
-  id: number = -1;
-  accountType: number = 0;
-  typeText: string = '';
-  amount: number = 0;
-  date: Date = new Date()
-  desc: string = '';
-
-  constructor(accountType: number = 0, typeText: string = '', amount: number = 0, date: Date = new Date(), desc: string = '') {
-    this.accountType = accountType;
-    this.typeText = typeText;
-    this.amount = amount;
-    this.date = date
-    this.desc = desc;
-  }
-}

@@ -14,7 +14,7 @@
  */
 
 import relationalStore from '@ohos.data.relationalStore';
-import AccountData from '../../../viewmodel/AccountData';
+import Account from '../../beans/Account';
 import CommonConstants from '../../constants/CommonConstants';
 import Rdb from '../Rdb';
 
@@ -33,27 +33,27 @@ export default class AccountTable {
     this.accountTable.getRdbStore(callback);
   }
 
-  insertData(account: AccountData, callback: Function) {
+  insertData(account: Account, callback: Function) {
     const valueBucket: relationalStore.ValuesBucket = generateBucket(account);
     this.accountTable.insertData(valueBucket, callback);
   }
 
-  batchInsert(accounts: AccountData[], callback: Function) {
+  batchInsert(accounts: Account[], callback: Function) {
     const valueBuckets: relationalStore.ValuesBucket[] = accounts.map((account) => generateBucket(account));
     this.accountTable.batchInsert(valueBuckets, callback)
   }
 
-  batchDelete(accounts: AccountData[], callback: Function) {
+  batchDelete(accounts: Account[], callback: Function) {
     let predicates = new relationalStore.RdbPredicates(CommonConstants.ACCOUNT_TABLE.tableName);
     predicates.in('id', accounts.map((account) => account.id));
     this.accountTable.deleteData(predicates, callback);
   }
 
-  deleteData(account: AccountData, callback: Function) {
+  deleteData(account: Account, callback: Function) {
     this.batchDelete([account], callback)
   }
 
-  updateData(account: AccountData, callback: Function) {
+  updateData(account: Account, callback: Function) {
     const valueBucket: relationalStore.ValuesBucket = generateBucket(account);
     let predicates = new relationalStore.RdbPredicates(CommonConstants.ACCOUNT_TABLE.tableName);
     predicates.equalTo('id', account.id);
@@ -68,9 +68,9 @@ export default class AccountTable {
         callback([]);
       } else {
         resultSet.goToFirstRow();
-        const result: AccountData[] = [];
+        const result: Account[] = [];
         for (let i = 0; i < count; i++) {
-          let tmp: AccountData = new AccountData()
+          let tmp: Account = new Account()
           tmp.id = resultSet.getDouble(resultSet.getColumnIndex('id'));
           tmp.accountType = resultSet.getDouble(resultSet.getColumnIndex('accountType'));
           tmp.typeText = resultSet.getString(resultSet.getColumnIndex('typeText'));
@@ -86,7 +86,7 @@ export default class AccountTable {
   }
 }
 
-function generateBucket(account: AccountData): relationalStore.ValuesBucket {
+function generateBucket(account: Account): relationalStore.ValuesBucket {
   let obj: relationalStore.ValuesBucket = {};
   obj.accountType = account.accountType;
   obj.typeText = account.typeText;

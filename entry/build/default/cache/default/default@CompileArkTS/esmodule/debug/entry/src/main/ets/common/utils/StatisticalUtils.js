@@ -1,4 +1,4 @@
-import ClassifiedStatistic from '@bundle:com.example.rdb/entry/ets/viewmodel/ClassifiedStatistic';
+import ClassifiedStatistic from '@bundle:com.example.rdb/entry/ets/common/beans/ClassifiedStatistic';
 import { isSameDay, isSameMonth } from '@bundle:com.example.rdb/entry/ets/common/utils/DateUtils';
 export function dayStatistics(accounts, accountType, date = new Date()) {
     return accounts.filter((account) => account.accountType === accountType && isSameDay(date, account.date))

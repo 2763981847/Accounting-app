@@ -1,11 +1,11 @@
 import CommonConstants from '../common/constants/CommonConstants';
 import { formatDateTime } from '../common/utils/DateUtils';
 import { totalAmount } from '../common/utils/StatisticalUtils';
-import AccountData from '../viewmodel/AccountData';
+import Account from '../common/beans/Account';
 
 
 @Builder
-export default function groupHeader(accounts: Array<AccountData>) {
+export default function groupHeader(accounts: Array<Account>) {
   Row() {
     Text(formatDateTime(accounts[0].date, 'yyyy.MM.dd'))
       .fontColor($r('app.color.black'))

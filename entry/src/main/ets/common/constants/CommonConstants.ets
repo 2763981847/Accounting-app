@@ -14,7 +14,7 @@
  */
 
 import relationalStore from '@ohos.data.relationalStore';
-import { AccountTable } from '../../viewmodel/ConstantsInterface';
+import { AccountTable } from '../../types';
 
 export default class CommonConstants {
   /**

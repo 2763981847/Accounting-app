@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import relationalStore from '@ohos:data.relationalStore';
-import AccountData from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountData';
+import Account from '@bundle:com.example.rdb/entry/ets/common/beans/Account';
 import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
 import Rdb from '@bundle:com.example.rdb/entry/ets/common/database/Rdb';
 export default class AccountTable {
@@ -59,7 +59,7 @@ export default class AccountTable {
                 resultSet.goToFirstRow();
                 const result = [];
                 for (let i = 0; i < count; i++) {
-                    let tmp = new AccountData();
+                    let tmp = new Account();
                     tmp.id = resultSet.getDouble(resultSet.getColumnIndex('id'));
                     tmp.accountType = resultSet.getDouble(resultSet.getColumnIndex('accountType'));
                     tmp.typeText = resultSet.getString(resultSet.getColumnIndex('typeText'));

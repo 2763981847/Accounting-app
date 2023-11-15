@@ -1,6 +1,6 @@
 import { generateRandomDate } from '../common/utils/DateUtils';
-import AccountData from './AccountData';
-import AccountItem from './AccountItem';
+import Account from '../common/beans/Account';
+import AccountItem from '../common/beans/AccountItem';
 
 export const PayList: Array<AccountItem> = [
   {
@@ -69,26 +69,26 @@ export const ImageList: Record<string, Resource> = {
 
 const now = new Date(), testBeginDate = new Date(now.getFullYear() - 2, 0)
 
-export const testAccounts: AccountData[] =
+export const testAccounts: Account[] =
   [
-    new AccountData(0, '吃饭', 100, new Date(), generateRandomString()),
-    new AccountData(0, '零食', 99, new Date(), generateRandomString()),
-    new AccountData(0, '汽车加油', 97, new Date(), generateRandomString()),
-    new AccountData(0, '旅游', 96, new Date(), generateRandomString()),
-    new AccountData(0, '宠物', 94, new Date(), generateRandomString()),
-    new AccountData(0, '吃饭', 100, new Date(), generateRandomString()),
-    new AccountData(1, '工作收入', 95, new Date(), generateRandomString()),
-    new AccountData(1, '投资', 94, new Date(), generateRandomString()),
-    new AccountData(1, '工作收入', 98, new Date(), generateRandomString()),
-    new AccountData(1, '投资', 97, new Date(), generateRandomString()),
-    new AccountData(1, '工作收入', 65, new Date(), generateRandomString()),
-    new AccountData(1, '投资', 94, new Date(), generateRandomString()),
-    new AccountData(0, '旅游', 96, generateRandomDate(testBeginDate, now), generateRandomString()),
-    new AccountData(0, '宠物', 94, generateRandomDate(testBeginDate, now), generateRandomString()),
-    new AccountData(0, '吃饭', 96, generateRandomDate(testBeginDate, now), generateRandomString()),
-    new AccountData(0, '零食', 94, generateRandomDate(testBeginDate, now), generateRandomString()),
-    new AccountData(1, '工作收入', 93, generateRandomDate(testBeginDate, now), generateRandomString()),
-    new AccountData(1, '投资', 105, generateRandomDate(testBeginDate, now), generateRandomString()),
+    new Account(0, '吃饭', 100, new Date(), generateRandomString()),
+    new Account(0, '零食', 99, new Date(), generateRandomString()),
+    new Account(0, '汽车加油', 97, new Date(), generateRandomString()),
+    new Account(0, '旅游', 96, new Date(), generateRandomString()),
+    new Account(0, '宠物', 94, new Date(), generateRandomString()),
+    new Account(0, '吃饭', 100, new Date(), generateRandomString()),
+    new Account(1, '工作收入', 95, new Date(), generateRandomString()),
+    new Account(1, '投资', 94, new Date(), generateRandomString()),
+    new Account(1, '工作收入', 98, new Date(), generateRandomString()),
+    new Account(1, '投资', 97, new Date(), generateRandomString()),
+    new Account(1, '工作收入', 65, new Date(), generateRandomString()),
+    new Account(1, '投资', 94, new Date(), generateRandomString()),
+    new Account(0, '旅游', 96, generateRandomDate(testBeginDate, now), generateRandomString()),
+    new Account(0, '宠物', 94, generateRandomDate(testBeginDate, now), generateRandomString()),
+    new Account(0, '吃饭', 96, generateRandomDate(testBeginDate, now), generateRandomString()),
+    new Account(0, '零食', 94, generateRandomDate(testBeginDate, now), generateRandomString()),
+    new Account(1, '工作收入', 93, generateRandomDate(testBeginDate, now), generateRandomString()),
+    new Account(1, '投资', 105, generateRandomDate(testBeginDate, now), generateRandomString()),
   ]
 
 function generateRandomString(): string {

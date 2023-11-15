@@ -14,7 +14,7 @@
  */
 
 import AccountTable from '../common/database/tables/AccountTable';
-import AccountData from '../viewmodel/AccountData';
+import Account from '../common/beans/Account';
 import CommonConstants from '../common/constants/CommonConstants';
 import { ImageList } from '../viewmodel/AccountList';
 import { formatDateTime, getEndOfTheDay, getFirstDateOfThisMonth, isSameDay } from '../common/utils/DateUtils';
@@ -22,7 +22,7 @@ import StatisticalCardComponent from '../view/StatisticalCardComponent';
 import groupHeader from '../view/GroupHeaderBuilder';
 import DateSelectComponent from '../view/DateSelectComponent';
 
-function getGroupedAccounts(accounts: Array<AccountData>): Array<Array<AccountData>> {
+function getGroupedAccounts(accounts: Array<Account>): Array<Array<Account>> {
   let groupedAccounts = []
   for (let i = 0;i < accounts.length; i++) {
     const account = accounts[i]
@@ -38,19 +38,19 @@ function getGroupedAccounts(accounts: Array<AccountData>): Array<Array<AccountDa
 export default struct MainPage {
   @State searchText: string = '';
   @State isEdit: boolean = false;
-  @Link @Watch('filterAccounts') accounts: Array<AccountData>
+  @Link @Watch('filterAccounts') accounts: Array<Account>
   @State @Watch('filterAccounts') endDate: number = getEndOfTheDay(new Date()).getTime()
   @State @Watch('filterAccounts') beginDate: number = 0
   // 0 - 收 1 - 支 2 - 全部
   @State @Watch('filterAccounts') accountType: number = 2
-  @State filteredAccounts: Array<AccountData> = []
+  @State filteredAccounts: Array<Account> = []
   @Link isInsert: boolean
-  @Link newAccount: AccountData
+  @Link newAccount: Account
   @Link index: number
   private scroller: Scroller = new Scroller()
   private dialogController: CustomDialogController
   private accountTable: AccountTable
-  private deleteList: Array<AccountData> = [];
+  private deleteList: Array<Account> = [];
   searchController: SearchController = new SearchController();
   onAccountsChange: () => void
 
@@ -77,7 +77,7 @@ export default struct MainPage {
     this.filteredAccounts = temp
   }
 
-  selectListItem(item: AccountData) {
+  selectListItem(item: Account) {
     this.index = this.filteredAccounts.indexOf(item);
     this.newAccount = item
   }
@@ -173,9 +173,9 @@ export default struct MainPage {
           }).width(CommonConstants.EIGHTY_PERCENT)
 
           List({ space: CommonConstants.SPACE_M }) {
-            ForEach(getGroupedAccounts(this.filteredAccounts), (accounts: Array<AccountData>) => {
+            ForEach(getGroupedAccounts(this.filteredAccounts), (accounts: Array<Account>) => {
               ListItemGroup({ header: groupHeader(accounts) }) {
-                ForEach(accounts, (account: AccountData) => {
+                ForEach(accounts, (account: Account) => {
                   ListItem() {
                     Row() {
                       Image(ImageList[account.typeText])

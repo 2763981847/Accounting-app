@@ -169,7 +169,7 @@ export struct DateSelectDialog {
           .fontSize($r('app.float.font_size_M'))
           .fontColor($r('app.color.gray'))
           .onClick(() => this.controller.close())
-        Text('统计时间')
+        Text('时间筛选')
           .fontSize($r('app.float.font_size_MP'))
           .fontColor($r('app.color.black'))
         Text('保存')

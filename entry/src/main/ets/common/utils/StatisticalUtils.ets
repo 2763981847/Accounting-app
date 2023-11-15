@@ -1,25 +1,25 @@
-import AccountData from '../../viewmodel/AccountData';
-import ClassifiedStatistic from '../../viewmodel/ClassifiedStatistic';
+import Account from '../beans/Account';
+import ClassifiedStatistic from '../beans/ClassifiedStatistic';
 import { isSameDay, isSameMonth } from './DateUtils';
 
-export function dayStatistics(accounts: Array<AccountData>, accountType: number, date: Date = new Date()): number {
+export function dayStatistics(accounts: Array<Account>, accountType: number, date: Date = new Date()): number {
   return accounts.filter((account) => account.accountType === accountType && isSameDay(date, account.date))
     .map((account) => account.amount).reduce((total, cur) => total + cur, 0);
 }
 
-export function monthStatistics(accounts: Array<AccountData>, accountType: number, date: Date = new Date()): number {
+export function monthStatistics(accounts: Array<Account>, accountType: number, date: Date = new Date()): number {
   return accounts.filter((account) => account.accountType === accountType && isSameMonth(date, account.date))
     .map((account) => account.amount).reduce((total, cur) => total + cur, 0);
 }
 
-export function totalAmount(accounts: Array<AccountData>, accountType: number): number {
+export function totalAmount(accounts: Array<Account>, accountType: number): number {
   return accounts.filter((account) => account.accountType === accountType)
     .map((account) => account.amount)
     .reduce((total, cur) => total + cur, 0)
 }
 
 
-export function statisticByType(accounts: Array<AccountData>, accountType: number, beginDate: Date | number, endDate: Date | number): Array<ClassifiedStatistic> {
+export function statisticByType(accounts: Array<Account>, accountType: number, beginDate: Date | number, endDate: Date | number): Array<ClassifiedStatistic> {
   if (beginDate instanceof Date) {
     beginDate = beginDate.getTime()
   }

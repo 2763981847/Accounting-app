@@ -14,8 +14,8 @@
  */
 
 import prompt from '@ohos.promptAction';
-import AccountData from '../viewmodel/AccountData';
-import AccountItem from '../viewmodel/AccountItem';
+import Account from '../common/beans/Account';
+import AccountItem from '../common/beans/AccountItem';
 import CommonConstants from '../common/constants/CommonConstants';
 import { EarnList, PayList } from '../viewmodel/AccountList';
 import { formatDateTime } from '../common/utils/DateUtils';
@@ -24,8 +24,8 @@ import { formatDateTime } from '../common/utils/DateUtils';
 export default struct AddDialogComponent {
   controller?: CustomDialogController;
   @Link isInsert: boolean;
-  @Link newAccount: AccountData;
-  confirm?: (isInsert: boolean, newAccount: AccountData) => void;
+  @Link newAccount: Account;
+  confirm?: (isInsert: boolean, newAccount: Account) => void;
   private scroller: Scroller = new Scroller();
   private inputAmount = '';
   private inputDesc = '';
