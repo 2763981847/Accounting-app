@@ -1,7 +1,7 @@
 // 引入 Prompt 模块
 import prompt from '@ohos.promptAction';
 import Account from '../common/beans/Account';
-import AccountItem from '../common/beans/AccountItem';
+import AccountClassification from '../common/beans/AccountClassification';
 import CommonConstants from '../common/constants/CommonConstants';
 import { EarnList, PayList } from '../viewmodel/AccountList';
 import { formatDateTime } from '../common/utils/DateUtils';
@@ -16,8 +16,8 @@ export default struct AddDialogComponent {
   private scroller: Scroller = new Scroller(); // 滚动器实例
   private inputAmount = ''; // 输入的金额字符串
   private inputDesc = ''; // 输入的描述字符串
-  @State payList: Array<AccountItem> = PayList; // 支出列表
-  @State earnList: Array<AccountItem> = EarnList; // 收入列表
+  @State payList: Array<AccountClassification> = PayList; // 支出列表
+  @State earnList: Array<AccountClassification> = EarnList; // 收入列表
   @State bgColor: string = ''; // 背景颜色
   @State curIndex: number = 0; // 当前选中的支付或收入索引
   @State curType: string = ''; // 当前选中的支付或收入类型
@@ -51,7 +51,7 @@ export default struct AddDialogComponent {
   }
 
   // 选择支付或收入类型
-  selectAccount(item: AccountItem) {
+  selectAccount(item: AccountClassification) {
     this.newAccount.accountType = item.accountType;
     this.newAccount.typeText = item.typeText;
     this.curType = item.typeText;
@@ -74,7 +74,7 @@ export default struct AddDialogComponent {
         TabContent() {
           // 支出类型列表
           Grid(this.scroller) {
-            ForEach(this.payList, (item: AccountItem) => {
+            ForEach(this.payList, (item: AccountClassification) => {
               GridItem() {
                 Column() {
                   Image(this.curType === item.typeText ? item.iconSelected : item.icon)
@@ -109,7 +109,7 @@ export default struct AddDialogComponent {
         TabContent() {
           // 收入类型列表
           Grid(this.scroller) {
-            ForEach(this.earnList, (item: AccountItem) => {
+            ForEach(this.earnList, (item: AccountClassification) => {
               GridItem() {
                 Column() {
                   Image(this.curType === item.typeText ? item.iconSelected : item.icon)

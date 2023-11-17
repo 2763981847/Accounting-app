@@ -1,10 +1,10 @@
 // 引入日期生成工具和相关的数据模型
 import { generateRandomDate } from '../common/utils/DateUtils';
 import Account from '../common/beans/Account';
-import AccountItem from '../common/beans/AccountItem';
+import AccountClassification from '../common/beans/AccountClassification';
 
 // 定义支出列表
-export const PayList: Array<AccountItem> = [
+export const PayList: Array<AccountClassification> = [
   {
     icon: $rawfile('foods.png'),
     iconSelected: $rawfile('foods_selected.png'),
@@ -44,7 +44,7 @@ export const PayList: Array<AccountItem> = [
 ];
 
 // 定义收入列表
-export const EarnList: Array<AccountItem> = [
+export const EarnList: Array<AccountClassification> = [
   {
     icon: $rawfile('income.png'),
     iconSelected: $rawfile('income_selected.png'),

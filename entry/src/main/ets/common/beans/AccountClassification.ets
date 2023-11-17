@@ -1,5 +1,5 @@
-// 导出一个名为 AccountItem 的接口，该接口用于表示记账应用中的记账类型项信息
-export default interface AccountItem {
+// 导出一个名为 AccountClassification 的接口，该接口用于表示记账应用中的记账类型项信息
+export default interface AccountClassification {
   // 图标资源，表示记账类型的默认图标
   icon: Resource;
 
