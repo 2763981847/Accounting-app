@@ -1,5 +1,8 @@
+// 引入 CommonConstants 模块
 import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
+// 引入日期相关的工具函数和类型
 import { formatDateTime, getDateRangeOfThisMonth, getDateRangeOfThisWeek, getDateRangeOfThisYear, getEndOfTheDay, getFirstDateOfThisMonth, getFirstDateOfThisYear, getMondayOfWeek, isSameDay } from '@bundle:com.example.rdb/entry/ets/common/utils/DateUtils';
+// 定义日期选择的枚举类型
 var DateSelectOption;
 (function (DateSelectOption) {
     DateSelectOption["ThisWeek"] = "\u672C\u5468";
@@ -8,6 +11,7 @@ var DateSelectOption;
     DateSelectOption["All"] = "\u5168\u90E8";
     DateSelectOption["CUSTOM"] = "\u81EA\u5B9A\u4E49";
 })(DateSelectOption || (DateSelectOption = {}));
+// 定义日期选择的选项数组
 const dateSelectOptions = [{
         name: DateSelectOption.ThisWeek,
         canSwitch: true,

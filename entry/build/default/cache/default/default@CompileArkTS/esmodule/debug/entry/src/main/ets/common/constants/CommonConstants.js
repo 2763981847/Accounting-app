@@ -1,29 +1,17 @@
-/*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
- * Licensed under the Apache License,Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// 导入关系型存储库
 import relationalStore from '@ohos:data.relationalStore';
+// 导出一个名为 CommonConstants 的类，用于存储记账应用中的常量信息
 export default class CommonConstants {
 }
 /**
- * Rdb database config.
+ * Rdb 数据库配置。
  */
 CommonConstants.STORE_CONFIG = {
     name: 'database.db',
     securityLevel: relationalStore.SecurityLevel.S1
 };
 /**
- * Account table config.
+ * 账户表配置。
  */
 CommonConstants.ACCOUNT_TABLE = {
     tableName: 'accountTable',
@@ -32,16 +20,16 @@ CommonConstants.ACCOUNT_TABLE = {
     columns: ['id', 'accountType', 'typeText', 'amount', 'date', 'desc']
 };
 /**
- * Search text of Search component.
+ * 搜索组件的搜索文本。
  */
 CommonConstants.SEARCH_TEXT = '搜索';
 /**
- * toast text of prompt component.
+ * 提示组件的提示文本。
  */
 CommonConstants.TOAST_TEXT_1 = '账目类型不能为空';
 CommonConstants.TOAST_TEXT_2 = '账目金额不为正整数';
 /**
- * Component size.
+ * 组件大小。
  */
 CommonConstants.FULL_WIDTH = '100%';
 CommonConstants.EIGHTY_PERCENT = '80%';
@@ -59,25 +47,25 @@ CommonConstants.DIVIDER_SIZE_M = 2;
 CommonConstants.DIVIDER_SIZE_S = 1;
 CommonConstants.CARD_ASPECT_RATIO = 2;
 /**
- * Component location.
+ * 组件位置。
  */
 CommonConstants.EDIT_POSITION_X = '80%';
 CommonConstants.EDIT_POSITION_Y = '90%';
 CommonConstants.DELETE_POSITION_X = '50%';
 CommonConstants.DELETE_POSITION_Y = '90%';
 /**
- * Log tag.
+ * 日志标签。
  */
 CommonConstants.RDB_TAG = '[Debug.Rdb]';
 CommonConstants.TABLE_TAG = '[Debug.AccountTable]';
 CommonConstants.INDEX_TAG = '[Debug.Index]';
 /**
- * distance
+ * 距离。
  */
 CommonConstants.SPACE_M = 20;
 CommonConstants.SPACE_S = 10;
 /**
- * date
+ * 日期。
  */
 CommonConstants.MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 CommonConstants.MILLISECONDS_IN_WEEK = 24 * 60 * 60 * 1000 * 7;

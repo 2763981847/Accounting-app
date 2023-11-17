@@ -4,11 +4,12 @@ import { formatDateTime, getEndOfTheDay, isSameDay } from '@bundle:com.example.r
 import StatisticalCardComponent from '@bundle:com.example.rdb/entry/ets/view/StatisticalCardComponent';
 import groupHeader from '@bundle:com.example.rdb/entry/ets/view/GroupHeaderBuilder';
 import DateSelectComponent from '@bundle:com.example.rdb/entry/ets/view/DateSelectComponent';
+// 将账单按日期分组
 function getGroupedAccounts(accounts) {
     let groupedAccounts = [];
     for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i];
-        if (i == 0 || !isSameDay(accounts[i - 1].date, account.date)) {
+        if (i === 0 || !isSameDay(accounts[i - 1].date, account.date)) {
             groupedAccounts.push([]);
         }
         groupedAccounts[groupedAccounts.length - 1].push(account);
@@ -22,9 +23,7 @@ export default class MainPage extends ViewPU {
         this.__isEdit = new ObservedPropertySimplePU(false, this, "isEdit");
         this.__accounts = new SynchedPropertyObjectTwoWayPU(params.accounts, this, "accounts");
         this.__endDate = new ObservedPropertySimplePU(getEndOfTheDay(new Date()).getTime(), this, "endDate");
-        this.__beginDate = new ObservedPropertySimplePU(0
-        // 0 - 收 1 - 支 2 - 全部
-        , this, "beginDate");
+        this.__beginDate = new ObservedPropertySimplePU(0, this, "beginDate");
         this.__accountType = new ObservedPropertySimplePU(2, this, "accountType");
         this.__filteredAccounts = new ObservedPropertyObjectPU([], this, "filteredAccounts");
         this.__isInsert = new SynchedPropertySimpleTwoWayPU(params.isInsert, this, "isInsert");
@@ -168,19 +167,22 @@ export default class MainPage extends ViewPU {
     set index(newValue) {
         this.__index.set(newValue);
     }
+    // 生命周期钩子，在页面即将显示时触发
     aboutToAppear() {
         this.filterAccounts();
     }
+    // 过滤账单列表
     filterAccounts() {
         let temp = this.accounts;
         // 模糊查询
-        if (this.searchText && this.searchText != '') {
+        if (this.searchText && this.searchText !== '') {
             temp = temp.filter(account => account.desc.includes(this.searchText) ||
                 account.typeText.includes(this.searchText) ||
                 account.amount.toString() === this.searchText);
         }
         // 按分类筛选
-        if (this.accountType != 2) {
+        // 2 代表全部
+        if (this.accountType !== 2) {
             temp = temp.filter(account => account.accountType === this.accountType);
         }
         // 按时间筛选
@@ -188,10 +190,12 @@ export default class MainPage extends ViewPU {
             .filter(account => account.date.getTime() >= this.beginDate && account.date.getTime() <= this.endDate);
         this.filteredAccounts = temp;
     }
+    // 选中列表项
     selectListItem(item) {
         this.index = this.filteredAccounts.indexOf(item);
         this.newAccount = item;
     }
+    // 删除选中的列表项
     deleteListItem() {
         this.accountTable.batchDelete(this.deleteList, () => {
             this.onAccountsChange();
@@ -199,6 +203,7 @@ export default class MainPage extends ViewPU {
         this.deleteList = [];
         this.isEdit = false;
     }
+    // 页面渲染函数
     initialRender() {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -247,26 +252,38 @@ export default class MainPage extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 页面标题
             Text.create({ "id": 16777219, "type": 10003, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 页面标题
             Text.height({ "id": 16777252, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 页面标题
             Text.fontSize({ "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 页面标题
             Text.margin({ left: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 页面标题
                 Text.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
+        // 页面标题
         Text.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 编辑按钮
             Image.create({ "id": 0, "type": 30000, params: ['ic_public_edit.svg'], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 编辑按钮
             Image.width({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 编辑按钮
             Image.aspectRatio(CommonConstants.FULL_SIZE);
+            // 编辑按钮
             Image.margin({ right: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            // 编辑按钮
             Image.onClick(() => {
                 this.isEdit = !this.isEdit;
             });
             if (!isInitialRender) {
+                // 编辑按钮
                 Image.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -286,7 +303,9 @@ export default class MainPage extends ViewPU {
             this.observeComponentCreation((elmtId, isInitialRender) => {
                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                 if (isInitialRender) {
-                    ViewPU.create(new StatisticalCardComponent(this, { accounts: this.__accounts }, undefined, elmtId));
+                    ViewPU.create(new 
+                    // 统计卡片组件
+                    StatisticalCardComponent(this, { accounts: this.__accounts }, undefined, elmtId));
                 }
                 else {
                     this.updateStateVarsOfChildByElmtId(elmtId, {});
@@ -297,50 +316,74 @@ export default class MainPage extends ViewPU {
         __Common__.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 搜索和分类按钮行
             Row.create();
+            // 搜索和分类按钮行
             Row.justifyContent(FlexAlign.SpaceBetween);
+            // 搜索和分类按钮行
             Row.width(CommonConstants.FULL_WIDTH);
+            // 搜索和分类按钮行
             Row.height({ "id": 16777252, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 搜索和分类按钮行
             Row.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            // 搜索和分类按钮行
             Row.margin({ top: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, bottom: { "id": 16777260, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 搜索和分类按钮行
                 Row.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 搜索输入框
             Search.create({
                 value: this.searchText,
                 placeholder: CommonConstants.SEARCH_TEXT,
                 controller: this.searchController
             });
+            // 搜索输入框
             Search.width('45%');
+            // 搜索输入框
             Search.borderRadius({ "id": 16777270, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 搜索输入框
             Search.borderWidth({ "id": 16777244, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 搜索输入框
             Search.borderColor({ "id": 16777232, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 搜索输入框
             Search.placeholderFont({ size: { "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            // 搜索输入框
             Search.textFont({ size: { "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
+            // 搜索输入框
             Search.backgroundColor(Color.White);
+            // 搜索输入框
             Search.onChange((searchValue) => {
                 this.searchText = searchValue;
             });
-            Search.onSubmit((searchValue) => {
+            // 搜索输入框
+            Search.onSubmit(() => {
                 this.filterAccounts();
             });
             if (!isInitialRender) {
+                // 搜索输入框
                 Search.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
+        // 搜索输入框
         Search.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 收入、支出、全部按钮
             Row.create({ space: CommonConstants.SPACE_S });
+            // 收入、支出、全部按钮
             Row.width(CommonConstants.HALF_WIDTH);
+            // 收入、支出、全部按钮
             Row.justifyContent(FlexAlign.End);
+            // 收入、支出、全部按钮
             Row.height(CommonConstants.FULL_HEIGHT);
             if (!isInitialRender) {
+                // 收入、支出、全部按钮
                 Row.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -387,7 +430,9 @@ export default class MainPage extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         Button.pop();
+        // 收入、支出、全部按钮
         Row.pop();
+        // 搜索和分类按钮行
         Row.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -402,7 +447,9 @@ export default class MainPage extends ViewPU {
             this.observeComponentCreation((elmtId, isInitialRender) => {
                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                 if (isInitialRender) {
-                    ViewPU.create(new DateSelectComponent(this, {
+                    ViewPU.create(new 
+                    // 时间选择组件
+                    DateSelectComponent(this, {
                         beginDate: this.__beginDate,
                         endDate: this.__endDate,
                         selectedIndex: 3
@@ -417,10 +464,14 @@ export default class MainPage extends ViewPU {
         __Common__.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 账单列表
             List.create({ space: CommonConstants.SPACE_M });
+            // 账单列表
             List.width(CommonConstants.FULL_WIDTH);
+            // 账单列表
             List.margin({ top: { "id": 16777261, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 账单列表
                 List.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -481,11 +532,16 @@ export default class MainPage extends ViewPU {
                                 });
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单类型图标
                                     Image.create(ImageList[account.typeText]);
+                                    // 账单类型图标
                                     Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单类型图标
                                     Image.aspectRatio(CommonConstants.FULL_SIZE);
+                                    // 账单类型图标
                                     Image.margin({ right: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
+                                        // 账单类型图标
                                         Image.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
@@ -501,26 +557,37 @@ export default class MainPage extends ViewPU {
                                 });
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单类型文字
                                     Text.create(account.typeText);
+                                    // 账单类型文字
                                     Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单类型文字
                                     Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     if (!isInitialRender) {
+                                        // 账单类型文字
                                         Text.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 账单类型文字
                                 Text.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单时间
                                     Text.create(formatDateTime(account.date, 'HH:mm'));
+                                    // 账单时间
                                     Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单时间
                                     Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单时间
                                     Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     if (!isInitialRender) {
+                                        // 账单时间
                                         Text.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 账单时间
                                 Text.pop();
                                 Column.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
@@ -530,20 +597,29 @@ export default class MainPage extends ViewPU {
                                         this.ifElseBranchUpdateFunction(0, () => {
                                             this.observeComponentCreation((elmtId, isInitialRender) => {
                                                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                                // 账单描述分隔线
                                                 Divider.create();
+                                                // 账单描述分隔线
                                                 Divider.vertical(true);
+                                                // 账单描述分隔线
                                                 Divider.strokeWidth(CommonConstants.DIVIDER_SIZE_M);
+                                                // 账单描述分隔线
                                                 Divider.color({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                                // 账单描述分隔线
                                                 Divider.height(CommonConstants.HALF_WIDTH);
+                                                // 账单描述分隔线
                                                 Divider.align(Alignment.Center);
+                                                // 账单描述分隔线
                                                 Divider.margin({ left: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                                 if (!isInitialRender) {
+                                                    // 账单描述分隔线
                                                     Divider.pop();
                                                 }
                                                 ViewStackProcessor.StopGetAccessRecording();
                                             });
                                         });
                                     }
+                                    // 账单描述
                                     else {
                                         If.branchId(1);
                                     }
@@ -555,26 +631,37 @@ export default class MainPage extends ViewPU {
                                 If.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单描述
                                     Text.create(account.desc);
+                                    // 账单描述
                                     Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单描述
                                     Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单描述
                                     Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单描述
                                     Text.margin({ left: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
+                                        // 账单描述
                                         Text.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 账单描述
                                 Text.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 编辑模式下显示复选框
                                     Blank.create();
+                                    // 编辑模式下显示复选框
                                     Blank.layoutWeight(1);
                                     if (!isInitialRender) {
+                                        // 编辑模式下显示复选框
                                         Blank.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 编辑模式下显示复选框
                                 Blank.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -583,16 +670,23 @@ export default class MainPage extends ViewPU {
                                         this.ifElseBranchUpdateFunction(0, () => {
                                             this.observeComponentCreation((elmtId, isInitialRender) => {
                                                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                                // 显示金额
                                                 Text.create(account.accountType === 0 ? '-' + account.amount.toString() : '+' + account.amount.toString());
+                                                // 显示金额
                                                 Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                                // 显示金额
                                                 Text.fontColor(account.accountType === 0 ? { "id": 16777240, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                                // 显示金额
                                                 Text.align(Alignment.End);
+                                                // 显示金额
                                                 Text.flexGrow(CommonConstants.FULL_SIZE);
                                                 if (!isInitialRender) {
+                                                    // 显示金额
                                                     Text.pop();
                                                 }
                                                 ViewStackProcessor.StopGetAccessRecording();
                                             });
+                                            // 显示金额
                                             Text.pop();
                                         });
                                     }
@@ -600,11 +694,16 @@ export default class MainPage extends ViewPU {
                                         this.ifElseBranchUpdateFunction(1, () => {
                                             this.observeComponentCreation((elmtId, isInitialRender) => {
                                                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                                // 编辑模式下显示复选框
                                                 Row.create();
+                                                // 编辑模式下显示复选框
                                                 Row.align(Alignment.End);
+                                                // 编辑模式下显示复选框
                                                 Row.flexGrow(CommonConstants.FULL_SIZE);
+                                                // 编辑模式下显示复选框
                                                 Row.justifyContent(FlexAlign.End);
                                                 if (!isInitialRender) {
+                                                    // 编辑模式下显示复选框
                                                     Row.pop();
                                                 }
                                                 ViewStackProcessor.StopGetAccessRecording();
@@ -627,6 +726,7 @@ export default class MainPage extends ViewPU {
                                                 ViewStackProcessor.StopGetAccessRecording();
                                             });
                                             Toggle.pop();
+                                            // 编辑模式下显示复选框
                                             Row.pop();
                                         });
                                     }
@@ -654,11 +754,16 @@ export default class MainPage extends ViewPU {
                                 });
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单类型图标
                                     Image.create(ImageList[account.typeText]);
+                                    // 账单类型图标
                                     Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单类型图标
                                     Image.aspectRatio(CommonConstants.FULL_SIZE);
+                                    // 账单类型图标
                                     Image.margin({ right: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
+                                        // 账单类型图标
                                         Image.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
@@ -674,26 +779,37 @@ export default class MainPage extends ViewPU {
                                 });
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单类型文字
                                     Text.create(account.typeText);
+                                    // 账单类型文字
                                     Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单类型文字
                                     Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     if (!isInitialRender) {
+                                        // 账单类型文字
                                         Text.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 账单类型文字
                                 Text.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单时间
                                     Text.create(formatDateTime(account.date, 'HH:mm'));
+                                    // 账单时间
                                     Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单时间
                                     Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单时间
                                     Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                                     if (!isInitialRender) {
+                                        // 账单时间
                                         Text.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 账单时间
                                 Text.pop();
                                 Column.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
@@ -703,20 +819,29 @@ export default class MainPage extends ViewPU {
                                         this.ifElseBranchUpdateFunction(0, () => {
                                             this.observeComponentCreation((elmtId, isInitialRender) => {
                                                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                                // 账单描述分隔线
                                                 Divider.create();
+                                                // 账单描述分隔线
                                                 Divider.vertical(true);
+                                                // 账单描述分隔线
                                                 Divider.strokeWidth(CommonConstants.DIVIDER_SIZE_M);
+                                                // 账单描述分隔线
                                                 Divider.color({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                                // 账单描述分隔线
                                                 Divider.height(CommonConstants.HALF_WIDTH);
+                                                // 账单描述分隔线
                                                 Divider.align(Alignment.Center);
+                                                // 账单描述分隔线
                                                 Divider.margin({ left: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                                 if (!isInitialRender) {
+                                                    // 账单描述分隔线
                                                     Divider.pop();
                                                 }
                                                 ViewStackProcessor.StopGetAccessRecording();
                                             });
                                         });
                                     }
+                                    // 账单描述
                                     else {
                                         If.branchId(1);
                                     }
@@ -728,26 +853,37 @@ export default class MainPage extends ViewPU {
                                 If.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 账单描述
                                     Text.create(account.desc);
+                                    // 账单描述
                                     Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单描述
                                     Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单描述
                                     Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                    // 账单描述
                                     Text.margin({ left: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                                     if (!isInitialRender) {
+                                        // 账单描述
                                         Text.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 账单描述
                                 Text.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                    // 编辑模式下显示复选框
                                     Blank.create();
+                                    // 编辑模式下显示复选框
                                     Blank.layoutWeight(1);
                                     if (!isInitialRender) {
+                                        // 编辑模式下显示复选框
                                         Blank.pop();
                                     }
                                     ViewStackProcessor.StopGetAccessRecording();
                                 });
+                                // 编辑模式下显示复选框
                                 Blank.pop();
                                 this.observeComponentCreation((elmtId, isInitialRender) => {
                                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -756,16 +892,23 @@ export default class MainPage extends ViewPU {
                                         this.ifElseBranchUpdateFunction(0, () => {
                                             this.observeComponentCreation((elmtId, isInitialRender) => {
                                                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                                // 显示金额
                                                 Text.create(account.accountType === 0 ? '-' + account.amount.toString() : '+' + account.amount.toString());
+                                                // 显示金额
                                                 Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                                // 显示金额
                                                 Text.fontColor(account.accountType === 0 ? { "id": 16777240, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                                                // 显示金额
                                                 Text.align(Alignment.End);
+                                                // 显示金额
                                                 Text.flexGrow(CommonConstants.FULL_SIZE);
                                                 if (!isInitialRender) {
+                                                    // 显示金额
                                                     Text.pop();
                                                 }
                                                 ViewStackProcessor.StopGetAccessRecording();
                                             });
+                                            // 显示金额
                                             Text.pop();
                                         });
                                     }
@@ -773,11 +916,16 @@ export default class MainPage extends ViewPU {
                                         this.ifElseBranchUpdateFunction(1, () => {
                                             this.observeComponentCreation((elmtId, isInitialRender) => {
                                                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                                                // 编辑模式下显示复选框
                                                 Row.create();
+                                                // 编辑模式下显示复选框
                                                 Row.align(Alignment.End);
+                                                // 编辑模式下显示复选框
                                                 Row.flexGrow(CommonConstants.FULL_SIZE);
+                                                // 编辑模式下显示复选框
                                                 Row.justifyContent(FlexAlign.End);
                                                 if (!isInitialRender) {
+                                                    // 编辑模式下显示复选框
                                                     Row.pop();
                                                 }
                                                 ViewStackProcessor.StopGetAccessRecording();
@@ -800,6 +948,7 @@ export default class MainPage extends ViewPU {
                                                 ViewStackProcessor.StopGetAccessRecording();
                                             });
                                             Toggle.pop();
+                                            // 编辑模式下显示复选框
                                             Row.pop();
                                         });
                                     }
@@ -836,12 +985,14 @@ export default class MainPage extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         ForEach.pop();
+        // 账单列表
         List.pop();
         Column.pop();
         Scroll.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
             If.create();
+            // 编辑模式下显示删除按钮
             if (this.isEdit) {
                 this.ifElseBranchUpdateFunction(0, () => {
                     this.observeComponentCreation((elmtId, isInitialRender) => {

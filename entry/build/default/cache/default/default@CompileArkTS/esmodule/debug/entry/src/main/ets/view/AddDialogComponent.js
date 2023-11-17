@@ -1,17 +1,4 @@
-/*
- * Copyright (c) 2023 Huawei Device Co., Ltd.
- * Licensed under the Apache License,Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// 引入 Prompt 模块
 import prompt from '@ohos:promptAction';
 import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
 import { EarnList, PayList } from '@bundle:com.example.rdb/entry/ets/viewmodel/AccountList';
@@ -31,9 +18,13 @@ export default class AddDialogComponent extends ViewPU {
         this.__bgColor = new ObservedPropertySimplePU('', this, "bgColor");
         this.__curIndex = new ObservedPropertySimplePU(0, this, "curIndex");
         this.__curType = new ObservedPropertySimplePU('', this, "curType");
-        this.selectedDate = this.newAccount.date;
-        this.__dateString = new ObservedPropertySimplePU(formatDateTime(this.selectedDate, 'yyyy.MM.dd'), this, "dateString");
-        this.__timeString = new ObservedPropertySimplePU(formatDateTime(this.selectedDate, 'HH:mm'), this, "timeString");
+        this.selectedDate = this.newAccount.date // 选中的日期，默认为新账户的日期
+        ;
+        this.__dateString = new ObservedPropertySimplePU(formatDateTime(this.selectedDate, 'yyyy.MM.dd') // 日期字符串
+        , this, "dateString");
+        this.__timeString = new ObservedPropertySimplePU(formatDateTime(this.selectedDate, 'HH:mm') // 时间字符串
+        // 构建 Tab 标签页
+        , this, "timeString");
         this.setInitiallyProvidedValue(params);
     }
     setInitiallyProvidedValue(params) {
@@ -160,6 +151,7 @@ export default class AddDialogComponent extends ViewPU {
     set timeString(newValue) {
         this.__timeString.set(newValue);
     }
+    // 构建 Tab 标签页
     TabBuilder(index, parent = null) {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -189,16 +181,19 @@ export default class AddDialogComponent extends ViewPU {
         Text.pop();
         Column.pop();
     }
+    // 当即将出现时触发的生命周期函数
     aboutToAppear() {
-        this.inputAmount = this.newAccount.amount.toString();
-        this.curIndex = this.newAccount.accountType;
-        this.curType = this.newAccount.typeText;
+        this.inputAmount = this.newAccount.amount.toString(); // 初始化输入金额
+        this.curIndex = this.newAccount.accountType; // 初始化当前支付或收入索引
+        this.curType = this.newAccount.typeText; // 初始化当前支付或收入类型
     }
+    // 选择支付或收入类型
     selectAccount(item) {
         this.newAccount.accountType = item.accountType;
         this.newAccount.typeText = item.typeText;
         this.curType = item.typeText;
     }
+    // 构建对话框内容
     initialRender() {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -215,29 +210,41 @@ export default class AddDialogComponent extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 关闭按钮
             Image.create({ "id": 0, "type": 30000, params: ['half.png'], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 关闭按钮
             Image.width({ "id": 16777245, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 关闭按钮
             Image.height({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 关闭按钮
             Image.onClick(() => {
                 var _a;
                 (_a = this.controller) === null || _a === void 0 ? void 0 : _a.close();
             });
             if (!isInitialRender) {
+                // 关闭按钮
                 Image.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 顶部标签页切换
             Tabs.create({ barPosition: BarPosition.Start, index: this.curIndex });
+            // 顶部标签页切换
             Tabs.width(CommonConstants.FULL_WIDTH);
+            // 顶部标签页切换
             Tabs.height(CommonConstants.TABS_HEIGHT);
+            // 顶部标签页切换
             Tabs.vertical(false);
+            // 顶部标签页切换
             Tabs.barMode(BarMode.Fixed);
+            // 顶部标签页切换
             Tabs.onChange((index) => {
                 this.curIndex = index;
             });
             if (!isInitialRender) {
+                // 顶部标签页切换
                 Tabs.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -247,10 +254,14 @@ export default class AddDialogComponent extends ViewPU {
             TabContent.create(() => {
                 this.observeComponentCreation((elmtId, isInitialRender) => {
                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                    // 支出类型列表
                     Grid.create(this.scroller);
+                    // 支出类型列表
                     Grid.columnsTemplate('1fr 1fr 1fr 1fr');
+                    // 支出类型列表
                     Grid.scrollBar(BarState.Off);
                     if (!isInitialRender) {
+                        // 支出类型列表
                         Grid.pop();
                     }
                     ViewStackProcessor.StopGetAccessRecording();
@@ -380,6 +391,7 @@ export default class AddDialogComponent extends ViewPU {
                     ViewStackProcessor.StopGetAccessRecording();
                 });
                 ForEach.pop();
+                // 支出类型列表
                 Grid.pop();
             });
             TabContent.tabBar({ builder: () => {
@@ -387,6 +399,7 @@ export default class AddDialogComponent extends ViewPU {
                 } });
             TabContent.margin({ bottom: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 支出标签页
                 TabContent.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -397,10 +410,14 @@ export default class AddDialogComponent extends ViewPU {
             TabContent.create(() => {
                 this.observeComponentCreation((elmtId, isInitialRender) => {
                     ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                    // 收入类型列表
                     Grid.create(this.scroller);
+                    // 收入类型列表
                     Grid.columnsTemplate('1fr 1fr 1fr 1fr');
+                    // 收入类型列表
                     Grid.scrollBar(BarState.Off);
                     if (!isInitialRender) {
+                        // 收入类型列表
                         Grid.pop();
                     }
                     ViewStackProcessor.StopGetAccessRecording();
@@ -530,6 +547,7 @@ export default class AddDialogComponent extends ViewPU {
                     ViewStackProcessor.StopGetAccessRecording();
                 });
                 ForEach.pop();
+                // 收入类型列表
                 Grid.pop();
             });
             TabContent.tabBar({ builder: () => {
@@ -537,18 +555,24 @@ export default class AddDialogComponent extends ViewPU {
                 } });
             TabContent.margin({ bottom: { "id": 16777255, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 收入标签页
                 TabContent.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
         TabContent.pop();
+        // 顶部标签页切换
         Tabs.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 选择日期和时间
             Row.create({ space: CommonConstants.SPACE_M });
+            // 选择日期和时间
             Row.height('5%');
+            // 选择日期和时间
             Row.justifyContent(FlexAlign.Center);
             if (!isInitialRender) {
+                // 选择日期和时间
                 Row.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -589,13 +613,18 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         Button.pop();
+        // 选择日期和时间
         Row.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 输入金额
             Column.create();
+            // 输入金额
             Column.width(CommonConstants.FULL_WIDTH);
+            // 输入金额
             Column.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 输入金额
                 Column.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -643,13 +672,18 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         Column.pop();
+        // 输入金额
         Column.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 输入描述
             Column.create();
+            // 输入描述
             Column.width(CommonConstants.FULL_WIDTH);
+            // 输入描述
             Column.padding({ left: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }, right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
             if (!isInitialRender) {
+                // 输入描述
                 Column.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -697,18 +731,24 @@ export default class AddDialogComponent extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         Column.pop();
+        // 输入描述
         Column.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 确认按钮
             Column.create();
+            // 确认按钮
             Column.layoutWeight(CommonConstants.FULL_SIZE);
+            // 确认按钮
             Column.padding({
                 bottom: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
                 left: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" },
                 right: { "id": 16777262, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" }
             });
+            // 确认按钮
             Column.justifyContent(FlexAlign.End);
             if (!isInitialRender) {
+                // 确认按钮
                 Column.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -720,6 +760,7 @@ export default class AddDialogComponent extends ViewPU {
             Button.height({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             Button.onClick(() => {
                 var _a;
+                // 判断输入是否合法
                 if (this.newAccount.typeText === '' || this.curIndex !== this.newAccount.accountType) {
                     prompt.showToast({ message: CommonConstants.TOAST_TEXT_1, bottom: CommonConstants.PROMPT_BOTTOM });
                 }
@@ -727,6 +768,7 @@ export default class AddDialogComponent extends ViewPU {
                     let regex = new RegExp('[1-9][0-9]*');
                     let matchValue = this.inputAmount.match(regex);
                     if (matchValue !== null && matchValue[0] === this.inputAmount) {
+                        // 合法输入，更新账户信息，调用确认回调函数
                         this.newAccount.amount = Number(this.inputAmount);
                         this.newAccount.date = this.selectedDate;
                         this.newAccount.desc = this.inputDesc;
@@ -734,6 +776,7 @@ export default class AddDialogComponent extends ViewPU {
                         (_a = this.controller) === null || _a === void 0 ? void 0 : _a.close();
                     }
                     else {
+                        // 非法输入，提示用户重新输入
                         prompt.showToast({ message: CommonConstants.TOAST_TEXT_2, bottom: CommonConstants.PROMPT_BOTTOM });
                     }
                 }
@@ -755,6 +798,7 @@ export default class AddDialogComponent extends ViewPU {
         });
         Text.pop();
         Button.pop();
+        // 确认按钮
         Column.pop();
         Column.pop();
     }

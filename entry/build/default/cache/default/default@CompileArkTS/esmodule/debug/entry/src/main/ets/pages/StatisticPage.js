@@ -1,3 +1,5 @@
+// 该组件用于展示统计页面，包括支出和收入的分类统计信息
+// 引入常量、工具和组件
 import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
 import { getEndOfTheDay, getFirstDateOfThisMonth } from '@bundle:com.example.rdb/entry/ets/common/utils/DateUtils';
 import { getRatios, statisticByType } from '@bundle:com.example.rdb/entry/ets/common/utils/StatisticalUtils';
@@ -109,12 +111,15 @@ export default class StatisticPage extends ViewPU {
     set ratios(newValue) {
         this.__ratios.set(newValue);
     }
+    // 刷新分类统计信息
     refreshClassifiedStatistics() {
         this.classifiedStatistics = statisticByType(this.accounts, this.accountType, this.beginDate, this.endDate);
-        this.totalAmount = this.classifiedStatistics.map(classifiedStatistic => classifiedStatistic.amount)
+        this.totalAmount = this.classifiedStatistics
+            .map(classifiedStatistic => classifiedStatistic.amount)
             .reduce((total, cur) => total + cur, 0);
         this.ratios = getRatios(this.classifiedStatistics);
     }
+    // 渲染页面
     initialRender() {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -169,7 +174,9 @@ export default class StatisticPage extends ViewPU {
             this.observeComponentCreation((elmtId, isInitialRender) => {
                 ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
                 if (isInitialRender) {
-                    ViewPU.create(new DateSelectComponent(this, {
+                    ViewPU.create(new 
+                    // 日期选择组件
+                    DateSelectComponent(this, {
                         beginDate: this.__beginDate,
                         endDate: this.__endDate,
                         selectedIndex: 0
@@ -205,16 +212,20 @@ export default class StatisticPage extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 数据面板
             DataPanel.create({
                 values: this.classifiedStatistics.map(classifiedStatistic => classifiedStatistic.amount),
                 max: 0
             });
+            // 数据面板
             DataPanel.aspectRatio(1);
             if (!isInitialRender) {
+                // 数据面板
                 DataPanel.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
+        // 数据面板
         DataPanel.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
@@ -227,32 +238,46 @@ export default class StatisticPage extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 总支出/收入文本
             Text.create('总' + (this.accountType === 0 ? '支出' : '收入'));
+            // 总支出/收入文本
             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 总支出/收入文本
             Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
+                // 总支出/收入文本
                 Text.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
+        // 总支出/收入文本
         Text.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 总金额文本
             Text.create(this.totalAmount.toString());
+            // 总金额文本
             Text.fontColor({ "id": 16777231, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 总金额文本
             Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
             if (!isInitialRender) {
+                // 总金额文本
                 Text.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
+        // 总金额文本
         Text.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 切换按钮
             Image.create({ "id": 16777280, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 切换按钮
             Image.width({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 切换按钮
             Image.onClick(() => this.accountType = this.accountType === 0 ? 1 : 0);
             if (!isInitialRender) {
+                // 切换按钮
                 Image.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -261,9 +286,12 @@ export default class StatisticPage extends ViewPU {
         Stack.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 列表展示分类统计信息
             List.create({ space: CommonConstants.SPACE_S });
+            // 列表展示分类统计信息
             List.width('25%');
             if (!isInitialRender) {
+                // 列表展示分类统计信息
                 List.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -299,27 +327,39 @@ export default class StatisticPage extends ViewPU {
                         });
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类面板
                             Text.create();
+                            // 分类面板
                             Text.backgroundColor(panelColors[index]);
+                            // 分类面板
                             Text.aspectRatio(1);
+                            // 分类面板
                             Text.height({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 分类面板
                             Text.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 分类面板
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 分类面板
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类类型文本
                             Text.create(classifiedStatistic.typeText);
+                            // 分类类型文本
                             Text.fontColor(panelColors[index]);
+                            // 分类类型文本
                             Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 分类类型文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 分类类型文本
                         Text.pop();
                         Row.pop();
                         ListItem.pop();
@@ -337,27 +377,39 @@ export default class StatisticPage extends ViewPU {
                         });
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类面板
                             Text.create();
+                            // 分类面板
                             Text.backgroundColor(panelColors[index]);
+                            // 分类面板
                             Text.aspectRatio(1);
+                            // 分类面板
                             Text.height({ "id": 16777250, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 分类面板
                             Text.borderRadius({ "id": 16777271, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 分类面板
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 分类面板
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类类型文本
                             Text.create(classifiedStatistic.typeText);
+                            // 分类类型文本
                             Text.fontColor(panelColors[index]);
+                            // 分类类型文本
                             Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 分类类型文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 分类类型文本
                         Text.pop();
                         Row.pop();
                         ListItem.pop();
@@ -377,6 +429,7 @@ export default class StatisticPage extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         ForEach.pop();
+        // 列表展示分类统计信息
         List.pop();
         Row.pop();
         Column.pop();
@@ -394,10 +447,14 @@ export default class StatisticPage extends ViewPU {
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 类别/比例标题行
             Row.create();
+            // 类别/比例标题行
             Row.justifyContent(FlexAlign.SpaceBetween);
+            // 类别/比例标题行
             Row.width(CommonConstants.FULL_WIDTH);
             if (!isInitialRender) {
+                // 类别/比例标题行
                 Row.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -424,12 +481,16 @@ export default class StatisticPage extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         Text.pop();
+        // 类别/比例标题行
         Row.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 列表展示详细分类统计信息
             List.create({ space: CommonConstants.SPACE_S });
+            // 列表展示详细分类统计信息
             List.width(CommonConstants.FULL_WIDTH);
             if (!isInitialRender) {
+                // 列表展示详细分类统计信息
                 List.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -469,23 +530,34 @@ export default class StatisticPage extends ViewPU {
                         });
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 排名文本
                             Text.create((index + 1).toString());
+                            // 排名文本
                             Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 排名文本
                             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 排名文本
                             Text.margin({ right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
+                                // 排名文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 排名文本
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类图标
                             Image.create(ImageList[classifiedStatistic.typeText]);
+                            // 分类图标
                             Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 分类图标
                             Image.aspectRatio(CommonConstants.FULL_SIZE);
+                            // 分类图标
                             Image.margin({ right: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
+                                // 分类图标
                                 Image.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
@@ -502,61 +574,88 @@ export default class StatisticPage extends ViewPU {
                         });
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类类型文本
                             Text.create(classifiedStatistic.typeText);
+                            // 分类类型文本
                             Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 分类类型文本
                             Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 分类类型文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 分类类型文本
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 笔数文本
                             Text.create(classifiedStatistic.count + '笔');
+                            // 笔数文本
                             Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 笔数文本
                             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 笔数文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 笔数文本
                         Text.pop();
                         Column.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 比例文本
                             Text.create('/' + (this.ratios[index] * 100).toFixed(2) + '%');
+                            // 比例文本
                             Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 比例文本
                             Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 比例文本
                             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 比例文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 比例文本
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 占位
                             Blank.create();
+                            // 占位
                             Blank.layoutWeight(1);
                             if (!isInitialRender) {
+                                // 占位
                                 Blank.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 占位
                         Blank.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 金额文本
                             Text.create(this.accountType === 0 ? '-' + classifiedStatistic.amount.toString() : '+' + classifiedStatistic.amount.toString());
+                            // 金额文本
                             Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 金额文本
                             Text.fontColor(this.accountType === 0 ? { "id": 16777240, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 金额文本
                             Text.align(Alignment.End);
+                            // 金额文本
                             Text.flexGrow(CommonConstants.FULL_SIZE);
                             if (!isInitialRender) {
+                                // 金额文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 金额文本
                         Text.pop();
                         Row.pop();
                         ListItem.pop();
@@ -576,23 +675,34 @@ export default class StatisticPage extends ViewPU {
                         });
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 排名文本
                             Text.create((index + 1).toString());
+                            // 排名文本
                             Text.fontSize({ "id": 16777264, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 排名文本
                             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 排名文本
                             Text.margin({ right: { "id": 16777256, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
+                                // 排名文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 排名文本
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类图标
                             Image.create(ImageList[classifiedStatistic.typeText]);
+                            // 分类图标
                             Image.width({ "id": 16777248, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 分类图标
                             Image.aspectRatio(CommonConstants.FULL_SIZE);
+                            // 分类图标
                             Image.margin({ right: { "id": 16777258, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } });
                             if (!isInitialRender) {
+                                // 分类图标
                                 Image.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
@@ -609,61 +719,88 @@ export default class StatisticPage extends ViewPU {
                         });
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 分类类型文本
                             Text.create(classifiedStatistic.typeText);
+                            // 分类类型文本
                             Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 分类类型文本
                             Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 分类类型文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 分类类型文本
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 笔数文本
                             Text.create(classifiedStatistic.count + '笔');
+                            // 笔数文本
                             Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 笔数文本
                             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 笔数文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 笔数文本
                         Text.pop();
                         Column.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 比例文本
                             Text.create('/' + (this.ratios[index] * 100).toFixed(2) + '%');
+                            // 比例文本
                             Text.height({ "id": 16777251, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 比例文本
                             Text.fontSize({ "id": 16777265, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 比例文本
                             Text.fontColor({ "id": 16777236, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
                             if (!isInitialRender) {
+                                // 比例文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 比例文本
                         Text.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 占位
                             Blank.create();
+                            // 占位
                             Blank.layoutWeight(1);
                             if (!isInitialRender) {
+                                // 占位
                                 Blank.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 占位
                         Blank.pop();
                         this.observeComponentCreation((elmtId, isInitialRender) => {
                             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+                            // 金额文本
                             Text.create(this.accountType === 0 ? '-' + classifiedStatistic.amount.toString() : '+' + classifiedStatistic.amount.toString());
+                            // 金额文本
                             Text.fontSize({ "id": 16777263, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 金额文本
                             Text.fontColor(this.accountType === 0 ? { "id": 16777240, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" } : { "id": 16777239, "type": 10001, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+                            // 金额文本
                             Text.align(Alignment.End);
+                            // 金额文本
                             Text.flexGrow(CommonConstants.FULL_SIZE);
                             if (!isInitialRender) {
+                                // 金额文本
                                 Text.pop();
                             }
                             ViewStackProcessor.StopGetAccessRecording();
                         });
+                        // 金额文本
                         Text.pop();
                         Row.pop();
                         ListItem.pop();
@@ -683,6 +820,7 @@ export default class StatisticPage extends ViewPU {
             ViewStackProcessor.StopGetAccessRecording();
         });
         ForEach.pop();
+        // 列表展示详细分类统计信息
         List.pop();
         Column.pop();
         Column.pop();

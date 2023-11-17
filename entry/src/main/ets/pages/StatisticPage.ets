@@ -27,7 +27,8 @@ export default struct StatisticPage {
   // 刷新分类统计信息
   private refreshClassifiedStatistics() {
     this.classifiedStatistics = statisticByType(this.accounts, this.accountType, this.beginDate, this.endDate);
-    this.totalAmount = this.classifiedStatistics.map(classifiedStatistic => classifiedStatistic.amount)
+    this.totalAmount = this.classifiedStatistics
+      .map(classifiedStatistic => classifiedStatistic.amount)
       .reduce((total, cur) => total + cur, 0);
     this.ratios = getRatios(this.classifiedStatistics);
   }

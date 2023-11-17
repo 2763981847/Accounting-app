@@ -10,17 +10,17 @@ export function formatDateTime(date: Date | number, format: string): string {
 
   // 定义日期格式化的参数对象
   const o = {
-    'y+': date.getFullYear(),             // 年份
-    'M+': date.getMonth() + 1,            // 月份
-    'd+': date.getDate(),                 // 日
+    'y+': date.getFullYear(), // 年份
+    'M+': date.getMonth() + 1, // 月份
+    'd+': date.getDate(), // 日
     'h+': date.getHours() % 12 === 0 ? 12 : date.getHours() % 12, // 小时
-    'H+': date.getHours(),                 // 小时
-    'm+': date.getMinutes(),              // 分
-    's+': date.getSeconds(),              // 秒
-    'q+': Math.floor((date.getMonth() + 3) / 3),  // 季度
-    S: date.getMilliseconds(),            // 毫秒
-    a: date.getHours() < 12 ? '上午' : '下午',        // 上午/下午
-    A: date.getHours() < 12 ? 'AM' : 'PM',           // AM/PM
+    'H+': date.getHours(), // 小时
+    'm+': date.getMinutes(), // 分
+    's+': date.getSeconds(), // 秒
+    'q+': Math.floor((date.getMonth() + 3) / 3), // 季度
+    S: date.getMilliseconds(), // 毫秒
+    a: date.getHours() < 12 ? '上午' : '下午', // 上午/下午
+    A: date.getHours() < 12 ? 'AM' : 'PM', // AM/PM
   };
 
   // 替换日期格式中的占位符

@@ -1,3 +1,4 @@
+// 引入常量和统计工具
 import CommonConstants from '@bundle:com.example.rdb/entry/ets/common/constants/CommonConstants';
 import { dayStatistics, monthStatistics } from '@bundle:com.example.rdb/entry/ets/common/utils/StatisticalUtils';
 export default class StatisticalCardComponent extends ViewPU {
@@ -73,33 +74,48 @@ export default class StatisticalCardComponent extends ViewPU {
     set monthEarn(newValue) {
         this.__monthEarn.set(newValue);
     }
+    // 监听accounts属性的变化，触发onAccountsChange方法
     onAccountsChange() {
+        // 更新状态变量，以反映最新的统计数据
         this.dayPay = dayStatistics(this.accounts, 0);
         this.dayEarn = dayStatistics(this.accounts, 1);
         this.monthPay = monthStatistics(this.accounts, 0);
         this.monthEarn = monthStatistics(this.accounts, 1);
     }
+    // 构建组件
     initialRender() {
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 使用Column布局，嵌套Row布局来展示统计信息
             Column.create();
+            // 使用Column布局，嵌套Row布局来展示统计信息
             Column.backgroundImage({ "id": 16777275, "type": 20000, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 使用Column布局，嵌套Row布局来展示统计信息
             Column.backgroundImageSize(ImageSize.Cover);
+            // 使用Column布局，嵌套Row布局来展示统计信息
             Column.borderRadius({ "id": 16777270, "type": 10002, params: [], "bundleName": "com.example.rdb", "moduleName": "entry" });
+            // 使用Column布局，嵌套Row布局来展示统计信息
             Column.width(CommonConstants.FULL_WIDTH);
+            // 使用Column布局，嵌套Row布局来展示统计信息
             Column.height(CommonConstants.FULL_HEIGHT);
             if (!isInitialRender) {
+                // 使用Column布局，嵌套Row布局来展示统计信息
                 Column.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
         });
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 第一行，展示今日支出、收入、结余
             Row.create();
+            // 第一行，展示今日支出、收入、结余
             Row.height(CommonConstants.HALF_HEIGHT);
+            // 第一行，展示今日支出、收入、结余
             Row.width(CommonConstants.FULL_WIDTH);
+            // 第一行，展示今日支出、收入、结余
             Row.justifyContent(FlexAlign.SpaceAround);
             if (!isInitialRender) {
+                // 第一行，展示今日支出、收入、结余
                 Row.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -199,14 +215,20 @@ export default class StatisticalCardComponent extends ViewPU {
         });
         Text.pop();
         Column.pop();
+        // 第一行，展示今日支出、收入、结余
         Row.pop();
         this.observeComponentCreation((elmtId, isInitialRender) => {
             ViewStackProcessor.StartGetAccessRecordingFor(elmtId);
+            // 第二行，展示本月支出、收入、结余
             Row.create();
+            // 第二行，展示本月支出、收入、结余
             Row.height(CommonConstants.HALF_HEIGHT);
+            // 第二行，展示本月支出、收入、结余
             Row.width(CommonConstants.FULL_WIDTH);
+            // 第二行，展示本月支出、收入、结余
             Row.justifyContent(FlexAlign.SpaceAround);
             if (!isInitialRender) {
+                // 第二行，展示本月支出、收入、结余
                 Row.pop();
             }
             ViewStackProcessor.StopGetAccessRecording();
@@ -304,7 +326,9 @@ export default class StatisticalCardComponent extends ViewPU {
         });
         Text.pop();
         Column.pop();
+        // 第二行，展示本月支出、收入、结余
         Row.pop();
+        // 使用Column布局，嵌套Row布局来展示统计信息
         Column.pop();
     }
     rerender() {
