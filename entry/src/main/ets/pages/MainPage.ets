@@ -51,7 +51,7 @@ export default struct MainPage {
   filterAccounts() {
     let temp = this.accounts;
     // 模糊查询
-    if (this.searchText && this.searchText !== '') {
+    if (this.searchText && this.searchText != '') {
       temp = temp.filter(account =>
       account.desc.includes(this.searchText) ||
       account.typeText.includes(this.searchText) ||

@@ -13,13 +13,14 @@ import StatisticPage from './StatisticPage'
 @Component
 struct EntryPage {
   // 定义状态变量
-  @State fontColor: string = '#182431'
-  @State selectedFontColor: string = '#007DFF'
   @State currentIndex: number = 0
   @State isInsert: boolean = false;
   @State newAccount: Account = new Account()
   @State accounts: Array<Account> = [];
   @State index: number = -1;
+
+  private fontColor: string = '#182431'
+  private selectedFontColor: string = '#007DFF'
 
   // 创建 AccountTable 对象，并插入一些测试数据
   private accountTable = new AccountTable(() => {
